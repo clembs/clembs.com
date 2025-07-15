@@ -22,7 +22,7 @@ const { key, date, contract, tools, baseHue, url } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
-const toolDetails = Tools.filter(({ name }) => tools.includes(name));
+const toolDetails = tools.map((t) => Tools.find(({ name }) => name === t)!);
 ---
 
 <article style={`--base-hue: ${baseHue}`}>
@@ -63,6 +63,17 @@ const toolDetails = Tools.filter(({ name }) => tools.includes(name));
 
 <style lang="scss">
   article {
+    --color-850: oklch(0.15 0.06 calc(var(--base-hue) + 12));
+    --color-800: oklch(0.2 0.09 calc(var(--base-hue) + 9));
+    --color-700: oklch(0.3 0.13 calc(var(--base-hue) + 6));
+    --color-600: oklch(0.4 0.17 calc(var(--base-hue) + 3));
+    --color-500: oklch(0.5 0.2 var(--base-hue));
+    --color-400: oklch(0.6 0.17 calc(var(--base-hue) + 2));
+    --color-300: oklch(0.7 0.13 calc(var(--base-hue) + 4));
+    --color-200: oklch(0.8 0.09 calc(var(--base-hue) + 6));
+    --color-100: oklch(0.9 0.06 calc(var(--base-hue) + 8));
+    --color-40: oklch(0.96 0.03 calc(var(--base-hue) + 10));
+
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
