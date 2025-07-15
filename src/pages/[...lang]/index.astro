@@ -1,0 +1,169 @@
+---
+export function getStaticPaths() {
+  return [
+    { params: { lang: "en" } },
+    { params: { lang: "fr" } },
+    { params: { lang: undefined } },
+  ];
+}
+
+import Button from "../../components/Button.astro";
+import Layout from "../../layouts/Layout.astro";
+import Briefcase from "../../icons/briefcase.svg";
+import {
+  getLangFromUrl,
+  useTranslatedPaths,
+  useTranslations,
+} from "../../i18n/utils";
+import ProjectCard from "../../components/ProjectCard.astro";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const translatePath = useTranslatedPaths(lang);
+---
+
+<Layout>
+  <section class="hero">
+    <div class="text">
+      <p class="small-text">
+        {t("intro.eyebrow")}
+      </p>
+
+      <h1>{t("intro.title")}</h1>
+
+      <p>{t("intro.subtext")}</p>
+    </div>
+
+    <div class="buttons">
+      <Button href={translatePath("/cv")}>
+        {t("cta.read_cv")}
+      </Button>
+      <Button variant="secondary" href={translatePath("/#contact")}>
+        {t("cta.contact_me")}
+      </Button>
+    </div>
+  </section>
+
+  <section class="projects">
+    <div class="section-title">
+      <Briefcase />
+
+      <h2>
+        {t("section_work")}
+      </h2>
+    </div>
+
+    <div class="project-grid">
+      <ProjectCard
+        key="uniten"
+        date="2025"
+        contract="internship"
+        tools={["Flutter", "Firebase", "PostgreSQL"]}
+        baseHue={31}
+        url="https://uniten.fr"
+      />
+      <ProjectCard
+        key="jameshuang"
+        date="2024-2025"
+        contract="freelance"
+        tools={["Svelte", "Sass"]}
+        baseHue={68}
+        url="https://jameshuang.design"
+      />
+      <ProjectCard
+        key="ix"
+        date="2024"
+        contract="freelance"
+        tools={["HTML", "CSS"]}
+        baseHue={203}
+        url="https://language-manual.pages.dev"
+      />
+    </div>
+  </section>
+
+  <section class="projects">
+    <div class="section-title">
+      <Briefcase />
+
+      <h2>
+        {t("section_projects")}
+      </h2>
+    </div>
+
+    <div class="project-grid">
+      <ProjectCard
+        key="uniten"
+        date="2025"
+        contract="internship"
+        tools={["Svelte", "Sass", "PostgreSQL"]}
+        baseHue={0}
+        url="https://uniten.fr"
+      />
+      <ProjectCard
+        key="jameshuang"
+        date="2019-2024"
+        contract="Discord bot"
+        tools={["TypeScript", "Prisma"]}
+        baseHue={5}
+        url="https://crbt.app"
+      />
+      <ProjectCard
+        key="ix"
+        date="2024"
+        contract="college-project"
+        tools={["Svelte", "Sass"]}
+        baseHue={147}
+        url="https://language-manual.pages.dev"
+      />
+    </div>
+  </section>
+</Layout>
+
+<style lang="scss">
+  .text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+
+    max-width: 42ch;
+    text-align: center;
+  }
+
+  .buttons {
+    display: flex;
+    gap: 0.5rem;
+  }
+  // }
+
+  section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+
+    margin: 0 auto;
+
+    max-width: 800px;
+    padding: 3rem;
+  }
+
+  .section-title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .project-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    // &:nth-child(2) {
+    //   grid-area: b;
+    // }
+    // &:nth-child(3) {
+    //   grid-area: c;
+    // }
+  }
+</style>

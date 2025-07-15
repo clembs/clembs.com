@@ -1,0 +1,9 @@
+export * as CSS from "./css.svg?raw";
+export * as Firebase from "./firebase.svg?raw";
+export * as Flutter from "./flutter.svg?raw";
+export * as HTML from "./html.svg?raw";
+export * as PostgreSQL from "./postgresql.svg?raw";
+export * as Prisma from "./prisma.svg?raw";
+export * as Sass from "./sass.svg?raw";
+export * as Svelte from "./svelte.svg?raw";
+export * as TypeScript from "./typescript.svg?raw";

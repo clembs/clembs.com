@@ -1,0 +1,64 @@
+@font-face {
+  font-family: "Fraunces";
+  src: url("/fonts/Fraunces.ttf") format("truetype");
+  font-weight: 400 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Chivo";
+  src: url("/fonts/Chivo.ttf") format("truetype");
+  font-weight: 400 700;
+  font-display: swap;
+}
+
+h1,
+.heading-1 {
+  font-family: var(--font-headings);
+  font-size: 2.25rem;
+  font-weight: 400;
+  line-height: 1.25;
+  text-wrap: balance;
+}
+
+h2,
+.heading-2 {
+  font-family: var(--font-headings);
+  font-size: 1.75rem;
+  font-weight: 400;
+  line-height: 1.25;
+  text-wrap: balance;
+}
+
+h3,
+.heading-3 {
+  font-family: var(--font-body);
+  font-size: 1.25rem;
+  font-weight: 400;
+  line-height: 1.25;
+  text-wrap: balance;
+}
+
+.clickable {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.25;
+}
+
+p,
+.paragraph {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.25;
+  text-wrap: pretty;
+}
+
+.small-text {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1;
+  text-wrap: pretty;
+}

@@ -1,0 +1,159 @@
+---
+import Tools from "./_tools";
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+import External from "../icons/external.svg";
+
+interface Props {
+  key: string;
+  date: "tba" | (string & {});
+  contract:
+    | "freelance"
+    | "internship"
+    | "full-time"
+    | "college-project"
+    | (string & {});
+  tools: (typeof Tools)[number]["name"][];
+  baseHue: number;
+  url?: string;
+}
+
+const { key, date, contract, tools, baseHue, url } = Astro.props;
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const toolDetails = Tools.filter(({ name }) => tools.includes(name));
+---
+
+<article style={`--base-hue: ${baseHue}`}>
+  <div class="top">
+    <div class="key-info">
+      <div class="text">
+        <h3>{t(`projects.${key}.title`)}</h3>
+
+        <span class="small-text date">{date}</span>
+      </div>
+
+      <a href={url}>
+        <External />
+      </a>
+    </div>
+
+    <p class="description">{t(`projects.${key}.description`)}</p>
+
+    <div class="context small-text">
+      <div class="text">
+        <span class="contract">
+          {t(contract)}
+        </span>
+
+        <span class="details">
+          {t(`projects.${key}.details`)}
+        </span>
+      </div>
+
+      <div class="tools">
+        {toolDetails.map(({ icon }) => <Fragment set:html={icon.default} />)}
+      </div>
+    </div>
+  </div>
+
+  <!-- <img src="" alt=""> -->
+</article>
+
+<style lang="scss">
+  article {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    color: var(--color-850);
+
+    border-radius: 2.25rem;
+    background-color: var(--color-40);
+    border: 1px solid var(--color-500);
+
+    &:first-child {
+      grid-column: span 2;
+    }
+
+    .top {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      padding: 1rem;
+
+      .key-info {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.5rem 0.5rem 0 0.5rem;
+
+        .text {
+          display: flex;
+          flex-direction: column;
+          gap: 0.125rem;
+
+          .date {
+            color: var(--color-600);
+          }
+        }
+
+        a {
+          display: grid;
+          place-items: center;
+          padding: 0.5rem;
+          border-radius: 99px;
+          background-color: var(--color-500);
+          color: var(--color-white);
+        }
+      }
+
+      .description {
+        padding: 0 0.5rem 0.5rem 0.5rem;
+      }
+
+      .context {
+        display: flex;
+        gap: 0.25rem;
+        flex-wrap: wrap;
+
+        .text {
+          display: inline-flex;
+          border: 2px solid var(--color-100);
+          background-color: var(--color-100);
+          border-radius: 1.5rem;
+
+          .contract,
+          .details {
+            border-radius: 1.5rem;
+            padding: 0.5rem 0.75rem;
+            color: var(--color-700);
+            white-space: nowrap;
+          }
+
+          .contract {
+            background-color: var(--color-100);
+          }
+
+          .details {
+            background-color: var(--color-white);
+          }
+        }
+
+        .tools {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.75rem;
+          background-color: var(--color-100);
+          border-radius: 1.5rem;
+          padding: 0.5rem;
+
+          :global(svg) {
+            width: 1rem;
+            height: 1rem;
+            fill: var(--color-700);
+          }
+        }
+      }
+    }
+  }
+</style>

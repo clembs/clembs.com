@@ -1,0 +1,76 @@
+---
+import Clembs from "../icons/clembs.svg";
+
+const targets = [
+  {
+    name: "about",
+    href: "/about",
+  },
+  {
+    name: "blog",
+    href: "/blog",
+  },
+];
+---
+
+<header>
+  <a class="logo" href="/" aria-label="home">
+    <Clembs />
+  </a>
+
+  <div class="right">
+    <nav>
+      <ul>
+        {
+          targets.map((t) => (
+            <li>
+              <a href={t.href}>{t.name}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+    <!-- language switcher -->
+  </div>
+</header>
+
+<style lang="scss">
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background-color: var(--color-white);
+    border: 1px solid var(--color-500);
+    border-radius: 999px;
+    margin: 0 auto;
+    padding: 0.5rem 1rem 0.5rem 0.5rem;
+    max-width: 800px;
+  }
+
+  .logo {
+    display: block;
+    padding: 0.5rem;
+  }
+
+  nav {
+    display: flex;
+    gap: 0.5rem;
+
+    ul {
+      display: contents;
+      list-style: none;
+
+      a {
+        display: block;
+        padding: 0.75rem 1.25rem;
+        border-radius: 999px;
+        user-select: none;
+
+        &:hover {
+          background-color: var(--color-40);
+        }
+      }
+    }
+  }
+</style>
