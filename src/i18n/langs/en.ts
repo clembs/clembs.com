@@ -14,6 +14,7 @@ export default {
   freelance: "Freelance",
   "full-time": "Full-time",
   "college-project": "College project",
+  "personal-project": "Personal project",
   tba: "TBA",
   "projects.uniten.title": "UNITEN",
   "projects.uniten.description":
@@ -27,4 +28,16 @@ export default {
   "projects.ix.description":
     "Static manual for a programming language with a minimal design and CSS-only interactions",
   "projects.ix.details": "Design + Code",
+  "projects.webpals.title": "Webpals",
+  "projects.webpals.description":
+    "Web app to create detailed and heavily personalized profiles to show off your personality, not yet released but open-source (I'm posting about it!)",
+  "projects.webpals.details": "Everything",
+  "projects.crbt.title": "CRBT",
+  "projects.crbt.description":
+    "Open-source application for managing Discord communities with easy-to-use menus and dedicated libraries.",
+  "projects.crbt.details": "Discord bot",
+  "projects.mecanume.title": "De la mécanique au numérique",
+  "projects.mecanume.description":
+    "Interactive blog article on the evolution of the tech industry (in french only).",
+  "projects.mecanume.details": "Design + Code",
 };

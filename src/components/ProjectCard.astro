@@ -11,6 +11,7 @@ interface Props {
     | "internship"
     | "full-time"
     | "college-project"
+    | "personal-project"
     | (string & {});
   tools: (typeof Tools)[number]["name"][];
   baseHue: number;
@@ -31,10 +32,10 @@ const toolDetails = tools.map((t) => Tools.find(({ name }) => name === t)!);
       <div class="text">
         <h3>{t(`projects.${key}.title`)}</h3>
 
-        <span class="small-text date">{date}</span>
+        <span class="small-text date">{date === "tba" ? t("tba") : date}</span>
       </div>
 
-      <a href={url}>
+      <a href={url} target="_blank" rel="noopener noreferrer">
         <External />
       </a>
     </div>
@@ -101,7 +102,7 @@ const toolDetails = tools.map((t) => Tools.find(({ name }) => name === t)!);
         .text {
           display: flex;
           flex-direction: column;
-          gap: 0.125rem;
+          gap: 0.25rem;
 
           .date {
             color: var(--color-600);
@@ -115,6 +116,8 @@ const toolDetails = tools.map((t) => Tools.find(({ name }) => name === t)!);
           border-radius: 99px;
           background-color: var(--color-500);
           color: var(--color-white);
+          height: max-content;
+          flex-shrink: 0;
         }
       }
 
