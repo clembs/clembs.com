@@ -8,20 +8,66 @@ export function getStaticPaths() {
 }
 
 import Button from "../../components/Button.astro";
+import ProjectCard from "../../components/ProjectCard.astro";
 import Layout from "../../layouts/Layout.astro";
-import Briefcase from "../../assets/icons/briefcase.svg";
-import Bulb from "../../assets/icons/bulb.svg";
-import Message from "../../assets/icons/message.svg";
 import {
   getLangFromUrl,
   useTranslatedPaths,
   useTranslations,
 } from "../../i18n/utils";
-import ProjectCard from "../../components/ProjectCard.astro";
+import Briefcase from "../../assets/icons/briefcase.svg";
+import Bulb from "../../assets/icons/bulb.svg";
+import Message from "../../assets/icons/message.svg";
+import Bluesky from "../../assets/socials/bluesky.png";
+import GitHub from "../../assets/socials/github.png";
+import KoFi from "../../assets/socials/kofi.png";
+import Papers from "../../assets/socials/papers.png";
+import Thunderbird from "../../assets/socials/thunderbird.png";
+import Twitter from "../../assets/socials/twitter.png";
+import Social, { type SocialProps } from "../../components/Social.astro";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const translatePath = useTranslatedPaths(lang);
+
+const socials: SocialProps[] = [
+  {
+    name: "Email",
+    description: "clembs@clembs.com",
+    text: "clembs@clembs.com",
+    img: Thunderbird,
+  },
+  {
+    name: "CV",
+    description: "View PDF",
+    href: translatePath("/cv"),
+    img: Papers,
+  },
+  {
+    name: "Twitter",
+    description: "@clembsv",
+    href: "https://twitter.com/clembsv",
+    img: Twitter,
+  },
+  {
+    name: "Bluesky",
+    description: "@clembs.com",
+    href: "https://bsky.app/profile/clembs.com",
+    img: Bluesky,
+  },
+  {
+    name: "GitHub",
+    description: "@clembs",
+    href: "https://github.com/Clembs",
+    img: GitHub,
+  },
+  {
+    name: "Ko-Fi",
+    description: "Support my work",
+    href: "https://ko-fi.com/clembs",
+    img: KoFi,
+  },
+];
 ---
 
 <Layout>
@@ -119,7 +165,8 @@ const translatePath = useTranslatedPaths(lang);
       />
     </div>
   </section>
-  <section>
+
+  <section id="contact">
     <div class="section-title">
       <Message />
 
@@ -130,6 +177,10 @@ const translatePath = useTranslatedPaths(lang);
       <p>
         {t("section_contact.description")}
       </p>
+    </div>
+
+    <div id="socials">
+      {socials.map((s) => <Social client:* {...s} />)}
     </div>
   </section>
 </Layout>
@@ -167,12 +218,20 @@ const translatePath = useTranslatedPaths(lang);
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.25rem;
+    gap: 0.5rem;
   }
 
   .project-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1.5rem;
+  }
+
+  #socials {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 500px;
   }
 </style>

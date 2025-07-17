@@ -1,0 +1,137 @@
+---
+import External from "../assets/icons/external.svg";
+import Copy from "../assets/icons/copy.svg";
+
+type Props = {
+  name: string;
+  description: string;
+  img: ImageMetadata;
+} & (
+  | {
+      href: string;
+    }
+  | {
+      text: string;
+    }
+);
+
+const social = Astro.props;
+
+export { type Props as SocialProps };
+---
+
+<script>
+  import Copy from "../assets/icons/copy.svg?raw";
+  import Check from "../assets/icons/check.svg?raw";
+
+  const socialButtons = document.querySelectorAll("button.social");
+
+  socialButtons.forEach((b) =>
+    b.addEventListener("click", () => {
+      if (!b.getAttribute("data-text")) {
+        console.error("?????");
+      }
+
+      navigator.clipboard.writeText(b.getAttribute("data-text")!);
+
+      let icon = b.querySelector(".icon-tabler")!;
+
+      icon.innerHTML = Check;
+
+      setTimeout(() => {
+        icon.innerHTML = Copy;
+      }, 1000);
+    })
+  );
+</script>
+
+{
+  "href" in social ? (
+    <a
+      href={social.href}
+      class="social"
+      target="_blank"
+      rel="noreferrer noopener"
+    >
+      <img {...social.img} alt={social.name} />
+
+      <div class="text">
+        <span class="name">
+          {social.name}
+
+          <External />
+        </span>
+        <span class="description small-text">{social.description}</span>
+      </div>
+    </a>
+  ) : (
+    <button
+      id={social.name.toLowerCase()}
+      class="social"
+      data-text={social.text}
+    >
+      <img {...social.img} alt={social.name} />
+
+      <div class="text">
+        <span class="name">
+          {social.name}
+
+          <Copy />
+        </span>
+        <span class="description small-text">{social.description}</span>
+      </div>
+    </button>
+  )
+}
+
+<style lang="scss">
+  .social {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 0.5rem;
+    margin: -0.5rem;
+    gap: 0.75rem;
+    border-radius: 1rem;
+
+    // button stuff
+    appearance: none;
+    background-color: transparent;
+    border: none;
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+
+    &:hover,
+    &:focus-visible {
+      background-color: var(--color-100);
+    }
+
+    img {
+      height: 2rem;
+      width: 2rem;
+      border-radius: 0.5rem;
+    }
+
+    .text {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+
+      .name {
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+
+        :global(svg) {
+          width: 1rem;
+          height: 1rem;
+        }
+      }
+
+      .description {
+        color: var(--color-500);
+      }
+    }
+  }
+</style>
