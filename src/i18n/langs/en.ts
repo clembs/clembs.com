@@ -10,6 +10,9 @@ export default {
   "cta.contact_me": "Contact me",
   section_work: "Professional work",
   section_projects: "Personal projects",
+  section_contact: "Connect with me",
+  "section_contact.description":
+    "Want to work with me? Chat about the weather? I’m open to discuss anything!",
   internship: "Internship",
   freelance: "Freelance",
   "full-time": "Full-time",

@@ -8,7 +8,7 @@ import {
   Sass,
   Svelte,
   TypeScript,
-} from "../icons/tools";
+} from "../assets/icons/tools";
 
 export default [
   {
