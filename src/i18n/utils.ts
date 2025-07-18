@@ -20,9 +20,13 @@ export function useTranslatedPaths(lang: keyof typeof ui) {
     const [, pathLang, ...restPath] = path.split("/");
 
     if (Object.keys(ui).includes(pathLang)) {
-      return `/${l}/${restPath.join("/")}`;
+      return removeTrailingSlash(`/${l}/${restPath.join("/")}`);
     }
 
-    return `/${l}${path}`;
+    return removeTrailingSlash(`/${l}${path}`);
   };
+}
+
+export function removeTrailingSlash(string: string) {
+  return string.replace(/(?:\/+(\?))/, "$1").replace(/\/+$/, "");
 }
