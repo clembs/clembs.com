@@ -1,20 +1,54 @@
 ---
 import Clembs from "../assets/icons/clembs.svg";
+import Globe from "../assets/icons/globe.svg";
+import {
+  getLangFromUrl,
+  useTranslations,
+  useTranslatedPaths,
+} from "../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const translatePaths = useTranslatedPaths(lang);
+const t = useTranslations(lang);
 
 const targets = [
   {
-    name: "about",
-    href: "/about",
+    name: t("about"),
+    href: translatePaths("/about"),
   },
   {
-    name: "blog",
-    href: "/blog",
+    name: t("blog"),
+    href: translatePaths("/blog"),
   },
 ];
 ---
 
+<script>
+  // progressive enhancements via JS: click outside && escape
+  const languageInput = document.querySelector(
+    "#language-input"
+  ) as HTMLInputElement;
+
+  document.addEventListener("click", (ev) => {
+    if (ev.target != languageInput) {
+      languageInput.checked = false;
+    }
+  });
+
+  document.addEventListener("keydown", (ev) => {
+    if (ev.key === "Escape") {
+      languageInput.checked = false;
+    }
+  });
+</script>
+
 <header>
-  <a class="logo" href="/" aria-label="home">
+  <a
+    class="logo"
+    href={translatePaths("/")}
+    aria-label={t("home")}
+    title={t("home")}
+  >
     <Clembs />
   </a>
 
@@ -24,13 +58,29 @@ const targets = [
         {
           targets.map((t) => (
             <li>
-              <a href={t.href}>{t.name}</a>
+              <a class="clickable target" href={t.href}>
+                {t.name}
+              </a>
             </li>
           ))
         }
       </ul>
     </nav>
-    <!-- language switcher -->
+    <input type="checkbox" id="language-input" />
+
+    <label
+      for="language-input"
+      class="target"
+      aria-label=""
+      aria-controls="menu"
+    >
+      <Globe />
+
+      <div id="language-menu">
+        <a href={translatePaths(Astro.url.pathname, "en")}> english </a>
+        <a href={translatePaths(Astro.url.pathname, "fr")}> français </a>
+      </div>
+    </label>
   </div>
 </header>
 
@@ -43,7 +93,7 @@ const targets = [
     background-color: var(--color-white);
     border: 1px solid var(--color-500);
     border-radius: 999px;
-    margin: 0 auto;
+    margin: 1.25rem auto;
     padding: 0.5rem 1rem 0.5rem 0.5rem;
     max-width: 800px;
   }
@@ -51,25 +101,86 @@ const targets = [
   .logo {
     display: block;
     padding: 0.5rem;
+    border-radius: 50%;
+  }
+
+  .right {
+    display: flex;
+    gap: 0.5rem;
   }
 
   nav {
-    display: flex;
-    gap: 0.5rem;
+    display: contents;
 
     ul {
       display: contents;
       list-style: none;
+    }
+  }
 
-      a {
-        display: block;
-        padding: 0.75rem 1.25rem;
-        border-radius: 999px;
-        user-select: none;
+  .target {
+    display: inline-grid;
+    place-items: center;
+    padding: 0.75rem 1.25rem;
+    border-radius: 999px;
+    user-select: none;
+    cursor: pointer;
 
-        &:hover {
-          background-color: var(--color-40);
-        }
+    &:hover {
+      background-color: var(--color-40);
+    }
+
+    &:is(label) {
+      position: relative;
+      padding: 0.5rem 0.75rem;
+
+      :global(svg) {
+        width: 1.25rem;
+        height: 1.25rem;
+      }
+    }
+  }
+
+  input[type="checkbox"] {
+    position: fixed;
+    width: 1px;
+    height: 1px;
+    top: -1px;
+    right: -1px;
+
+    &:focus-visible + label {
+      outline: 1px solid black;
+    }
+
+    &:checked + label {
+      background-color: var(--color-40);
+
+      #language-menu {
+        display: flex;
+      }
+    }
+  }
+
+  #language-menu {
+    display: none;
+    flex-direction: column;
+    background-color: var(--color-white);
+    border: 1px solid var(--color-400);
+    padding: 0.5rem;
+    border-radius: 1.5rem;
+
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translateY(44px);
+
+    a {
+      white-space: nowrap;
+      padding: 1rem;
+      border-radius: 1rem;
+
+      &:hover {
+        background-color: var(--color-40);
       }
     }
   }
