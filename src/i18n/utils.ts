@@ -17,6 +17,12 @@ export function useTranslations(lang: keyof typeof ui) {
 
 export function useTranslatedPaths(lang: keyof typeof ui) {
   return function translatePath(path: string, l: string = lang) {
-    return l === defaultLang ? path : `/${l}${path}`;
+    const [, pathLang, ...restPath] = path.split("/");
+
+    if (Object.keys(ui).includes(pathLang)) {
+      return `/${l}/${restPath.join("/")}`;
+    }
+
+    return `/${l}${path}`;
   };
 }

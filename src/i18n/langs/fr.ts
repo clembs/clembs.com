@@ -1,9 +1,9 @@
 import type en from "./en";
 
 export const fr: typeof en = {
-  home: "Accueil",
-  about: "À propos",
-  blog: "Blog",
+  home: "accueil",
+  about: "à propos",
+  blog: "blog",
   "intro.eyebrow": "Bonjour, je suis Clément et bienvenue sur mon site web !",
   "intro.title":
     "Designer et développeur produit sur lequel vous pouvez compter.",
@@ -13,6 +13,11 @@ export const fr: typeof en = {
   "cta.contact_me": "Me contacter",
   section_work: "Expérience professionnelle",
   section_projects: "Projets personnels",
+  section_contact: "On discute ?",
+  "section_contact.description":
+    "Vous voulez travailler avec moi ? Discuter du beau temps ? Envoyez-moi le bonjour de là où vous êtes !",
+  "contact.cv.view_pdf": "Voir le PDF",
+  "contact.support": "Soutenez mon travail",
   internship: "Stage",
   freelance: "Freelance",
   "full-time": "Temps plein",

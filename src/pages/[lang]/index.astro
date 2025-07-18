@@ -3,7 +3,6 @@ export function getStaticPaths() {
   return [
     { params: { lang: "en" } },
     { params: { lang: "fr" } },
-    { params: { lang: undefined } },
   ];
 }
 
@@ -219,6 +218,11 @@ const socials: SocialProps[] = [
     flex-direction: column;
     align-items: center;
     gap: 0.5rem;
+
+    :global(svg) {
+      width: 2.25rem;
+      height: 2.25rem;
+    }
   }
 
   .project-grid {

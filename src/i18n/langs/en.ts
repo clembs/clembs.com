@@ -1,7 +1,7 @@
 export default {
-  home: "Home",
-  about: "About",
-  blog: "Blog",
+  home: "home",
+  about: "about",
+  blog: "blog",
   "intro.eyebrow": "Hi, I'm Clément, welcome to my website!",
   "intro.title": "Reliable product designer and developer.",
   "intro.subtext":
@@ -12,7 +12,9 @@ export default {
   section_projects: "Personal projects",
   section_contact: "Connect with me",
   "section_contact.description":
-    "Want to work with me? Chat about the weather? I’m open to discuss anything!",
+    "Want to work with me? Chat about the weather? Shoot me a hello, wherever you are!",
+  "contact.cv.view_pdf": "View PDF",
+  "contact.support": "Support my work",
   internship: "Internship",
   freelance: "Freelance",
   "full-time": "Full-time",
