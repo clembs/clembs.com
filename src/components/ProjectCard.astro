@@ -118,6 +118,11 @@ const toolDetails = tools.map((t) => Tools.find(({ name }) => name === t)!);
           color: var(--color-white);
           height: max-content;
           flex-shrink: 0;
+
+          :global(svg) {
+            width: 1.25rem;
+            height: 1.25rem;
+          }
         }
       }
 

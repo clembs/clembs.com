@@ -28,13 +28,16 @@ export { type Props as SocialProps };
 
   socialButtons.forEach((b) =>
     b.addEventListener("click", () => {
-      if (!b.getAttribute("data-text")) {
+      const text = b.getAttribute("data-text");
+
+      if (!text) {
         console.error("?????");
+        return;
       }
 
-      navigator.clipboard.writeText(b.getAttribute("data-text")!);
+      navigator.clipboard.writeText(text);
 
-      let icon = b.querySelector(".icon-tabler")!;
+      let icon = b.querySelector("svg")!;
 
       icon.innerHTML = Check;
 
