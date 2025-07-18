@@ -1,9 +1,6 @@
 ---
 export function getStaticPaths() {
-  return [
-    { params: { lang: "en" } },
-    { params: { lang: "fr" } },
-  ];
+  return [{ params: { lang: "en" } }, { params: { lang: "fr" } }];
 }
 
 import Button from "../../components/Button.astro";
@@ -179,7 +176,7 @@ const socials: SocialProps[] = [
     </div>
 
     <div id="socials">
-      {socials.map((s) => <Social client:* {...s} />)}
+      {socials.map((s) => <Social {...s} />)}
     </div>
   </section>
 </Layout>
