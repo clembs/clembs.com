@@ -131,12 +131,11 @@ const toolDetails = tools.map((t) => Tools.find(({ name }) => name === t)!);
               width: 1.25rem;
               height: 1.25rem;
             }
+          }
 
-            @media (hover: hover) {
-              &:hover,
-              &:focus-visible {
-                background-color: var(--color-600);
-              }
+          @media (hover: hover) {
+            &:is(:hover, :focus-visible) .button {
+              background-color: var(--color-600);
             }
           }
         }
