@@ -207,13 +207,14 @@ const socials: SocialProps[] = [
     margin: 0 auto;
 
     max-width: 800px;
-    padding: 3rem;
+    padding: clamp(1rem, 5vw, 3rem);
   }
 
   .section-title {
     display: flex;
     flex-direction: column;
     align-items: center;
+    text-align: center;
     gap: 0.5rem;
 
     :global(svg) {
@@ -226,6 +227,18 @@ const socials: SocialProps[] = [
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1.5rem;
+
+    :global(> :first-child) {
+      grid-column: span 2;
+    }
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+
+      :global(> :first-child) {
+        grid-column: span 1;
+      }
+    }
   }
 
   #socials {
@@ -234,5 +247,10 @@ const socials: SocialProps[] = [
     gap: 1.5rem;
     width: 100%;
     max-width: 500px;
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
   }
 </style>

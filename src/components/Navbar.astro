@@ -96,6 +96,7 @@ const targets = [
     margin: 1.25rem auto;
     padding: 0.5rem 1rem 0.5rem 0.5rem;
     max-width: 800px;
+    width: 100%;
   }
 
   .logo {
@@ -126,8 +127,10 @@ const targets = [
     user-select: none;
     cursor: pointer;
 
-    &:hover {
-      background-color: var(--color-40);
+    @media (hover: hover) {
+      &:hover {
+        background-color: var(--color-40);
+      }
     }
 
     &:is(label) {
@@ -179,8 +182,11 @@ const targets = [
       padding: 1rem;
       border-radius: 1rem;
 
-      &:hover {
-        background-color: var(--color-40);
+      @media (hover: hover) {
+        &:hover,
+        &:focus-visible {
+          background-color: var(--color-40);
+        }
       }
     }
   }

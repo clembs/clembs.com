@@ -105,9 +105,20 @@ export { type Props as SocialProps };
     color: inherit;
     cursor: pointer;
 
-    &:hover,
-    &:focus-visible {
-      background-color: var(--color-100);
+    @media (max-width: 768px) {
+      padding: 1rem;
+      margin: 0;
+    }
+
+    @media (any-pointer: coarse) {
+      padding: 1rem;
+    }
+
+    @media (hover: hover) {
+      &:hover,
+      &:focus-visible {
+        background-color: var(--color-100);
+      }
     }
 
     img {
@@ -125,6 +136,7 @@ export { type Props as SocialProps };
         display: flex;
         align-items: center;
         gap: 0.25rem;
+        font-weight: 500;
 
         :global(svg) {
           width: 1rem;

@@ -36,7 +36,9 @@ const toolDetails = tools.map((t) => Tools.find(({ name }) => name === t)!);
       </div>
 
       <a href={url} target="_blank" rel="noopener noreferrer">
-        <External />
+        <div class="button">
+          <External />
+        </div>
       </a>
     </div>
 
@@ -84,10 +86,6 @@ const toolDetails = tools.map((t) => Tools.find(({ name }) => name === t)!);
     background-color: var(--color-40);
     border: 1px solid var(--color-500);
 
-    &:first-child {
-      grid-column: span 2;
-    }
-
     .top {
       display: flex;
       flex-direction: column;
@@ -110,18 +108,36 @@ const toolDetails = tools.map((t) => Tools.find(({ name }) => name === t)!);
         }
 
         a {
-          display: grid;
-          place-items: center;
-          padding: 0.5rem;
-          border-radius: 99px;
-          background-color: var(--color-500);
-          color: var(--color-white);
-          height: max-content;
+          height: fit-content;
           flex-shrink: 0;
+          margin: -0.25rem;
+          padding: 0.25rem;
 
-          :global(svg) {
-            width: 1.25rem;
-            height: 1.25rem;
+          @media (any-pointer: coarse) {
+            margin: -1rem;
+            padding: 1rem;
+          }
+
+          .button {
+            display: grid;
+            place-items: center;
+            padding: 0.5rem;
+            border-radius: 99px;
+            background-color: var(--color-500);
+            color: var(--color-white);
+            flex-shrink: 0;
+
+            :global(svg) {
+              width: 1.25rem;
+              height: 1.25rem;
+            }
+
+            @media (hover: hover) {
+              &:hover,
+              &:focus-visible {
+                background-color: var(--color-600);
+              }
+            }
           }
         }
       }
