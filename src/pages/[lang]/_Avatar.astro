@@ -6,7 +6,7 @@ const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 ---
 
-<div>
+<div id="tronche">
   <img
     {...Tronche}
     height={88}
@@ -17,7 +17,7 @@ const t = useTranslations(lang);
 </div>
 
 <style lang="scss">
-  div {
+  #tronche {
     display: block;
     position: relative;
     height: 88px;
