@@ -4,11 +4,11 @@ export const fr: typeof en = {
   home: "accueil",
   about: "à propos",
   blog: "blog",
-  "intro.eyebrow": "Bonjour, je suis Clément et bienvenue sur mon site web !",
+  "intro.eyebrow": "Salut, c'est Clément. Bienvenue sur mon site !",
   "intro.title":
     "Designer et développeur produit sur lequel vous pouvez compter.",
   "intro.subtext":
-    "Étudiant français en BUT Informatique, je mélange design et code pour concevoir des produits, sites et applications qualitatives.",
+    "Étudiant en BUT Informatique à Toulouse, je mélange design et code pour concevoir des produits, sites et applications qualitatives.",
   "cta.read_cv": "Lire mon CV",
   "cta.contact_me": "Me contacter",
   section_work: "Expérience professionnelle",
@@ -23,7 +23,7 @@ export const fr: typeof en = {
   "full-time": "Temps plein",
   "college-project": "Projet universitaire",
   "personal-project": "Projet personnel",
-  tba: "En développement",
+  tba: "En cours de développement",
   "projects.uniten.title": "UNITEN",
   "projects.uniten.description":
     "App mobile permettant aux joueurs de tennis de trouver des partenaires, créée de zéro en 8 semaines",
@@ -38,7 +38,7 @@ export const fr: typeof en = {
   "projects.ix.details": "Design et code",
   "projects.webpals.title": "Webpals",
   "projects.webpals.description":
-    "Appli web pour créer des profils hautement détaillés et personnalisés, en cours de développement et open-source",
+    "Appli web open-source pour créer des profils hautement détaillés et personnalisés",
   "projects.webpals.details": "Tout",
   "projects.crbt.title": "CRBT",
   "projects.crbt.description":
