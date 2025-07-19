@@ -5,6 +5,9 @@ export function getStaticPaths() {
 
 import Briefcase from "@assets/icons/briefcase.svg";
 import Bulb from "@assets/icons/bulb.svg";
+import CRBT from "@assets/project-icons/crbt.webp";
+import MecaNume from "@assets/project-icons/mecanume.png";
+import Webpals from "@assets/project-icons/webpals.webp";
 import Ix from "@assets/project-images/ix.webp";
 import JamesHuang from "@assets/project-images/jameshuang.webp";
 import Uniten1 from "@assets/project-images/uniten-1.webp";
@@ -130,6 +133,7 @@ const translatePath = useTranslatedPaths(lang);
         tools={["Svelte", "Sass", "PostgreSQL"]}
         baseHue={250}
         url="https://webpals.me/clembs"
+        icon={Webpals}
         images={[
           {
             ...Webpals1,
@@ -152,6 +156,7 @@ const translatePath = useTranslatedPaths(lang);
         tools={["Purplet", "TypeScript", "Discord", "Prisma"]}
         baseHue={5}
         url="https://crbt.app"
+        icon={CRBT}
       />
       <ProjectCard
         key="mecanume"
@@ -160,6 +165,7 @@ const translatePath = useTranslatedPaths(lang);
         tools={["Svelte", "Sass"]}
         baseHue={147}
         url="https://mecanique-numerique.vercel.app"
+        icon={MecaNume}
       />
     </div>
   </section>

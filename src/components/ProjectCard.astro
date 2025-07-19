@@ -17,10 +17,11 @@ interface Props {
   tools: (typeof Tools)[number]["name"][];
   baseHue: number;
   url?: string;
+  icon?: ImageMetadata;
   images?: (ImageMetadata & { alt: string })[];
 }
 
-const { key, date, contract, tools, baseHue, url, images } = Astro.props;
+const { key, date, contract, tools, baseHue, url, icon, images } = Astro.props;
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -31,10 +32,25 @@ const toolDetails = tools.map((t) => Tools.find(({ name }) => name === t)!);
 <article style={`--base-hue: ${baseHue}`}>
   <div class="top">
     <div class="key-info">
-      <div class="text">
-        <h3>{t(`projects.${key}.title`)}</h3>
+      <div class="app">
+        {
+          icon && (
+            <img
+              {...icon}
+              width="50"
+              height="50"
+              alt={`Icon for ${t(`projects.${key}.title`)}`}
+              class:list={[{ pixelate: key === "mecanume" }, "icon"]}
+            />
+          )
+        }
 
-        <span class="small-text date">{date === "tba" ? t("tba") : date}</span>
+        <div class="text">
+          <h3>{t(`projects.${key}.title`)}</h3>
+
+          <span class="small-text date">{date === "tba" ? t("tba") : date}</span
+          >
+        </div>
       </div>
 
       <a href={url} target="_blank" rel="noopener noreferrer">
@@ -107,15 +123,33 @@ const toolDetails = tools.map((t) => Tools.find(({ name }) => name === t)!);
       .key-info {
         display: flex;
         justify-content: space-between;
+        gap: 0.5rem;
         padding: 0.5rem 0.5rem 0 0.5rem;
 
-        .text {
+        .app {
           display: flex;
-          flex-direction: column;
-          gap: 0.25rem;
+          gap: 0.5rem;
+          // align-items: center;
 
-          .date {
-            color: var(--color-600);
+          .icon {
+            border-radius: 0.75rem;
+            width: 3rem;
+            height: 3rem;
+
+            &.pixelate {
+              image-rendering: pixelated;
+            }
+          }
+
+          .text {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            width: 100%;
+
+            .date {
+              color: var(--color-600);
+            }
           }
         }
 
@@ -124,6 +158,7 @@ const toolDetails = tools.map((t) => Tools.find(({ name }) => name === t)!);
           flex-shrink: 0;
           margin: -0.25rem;
           padding: 0.25rem;
+          border-radius: 99px;
 
           @media (any-pointer: coarse) {
             margin: -1rem;
