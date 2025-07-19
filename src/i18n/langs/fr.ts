@@ -5,6 +5,7 @@ export const fr: typeof en = {
   about: "à propos",
   blog: "blog",
   footer_legal_blurb: "Tous droits réservés.",
+  "intro.tronche.alt": "Ma tête ulta professionnelle et pleine de joie",
   "intro.eyebrow": "Salut, c'est Clément. Bienvenue sur mon site !",
   "intro.title":
     "Designer et développeur produit sur lequel vous pouvez compter.",
@@ -16,7 +17,7 @@ export const fr: typeof en = {
   section_projects: "Projets personnels",
   section_contact: "On discute ?",
   "section_contact.description":
-    "Vous voulez travailler avec moi ? Discuter du beau temps ? Envoyez-moi le bonjour de là où vous êtes !",
+    "Vous voulez travailler avec moi ? Discuter du beau temps ? Je serais ravi de vous répondre !",
   "contact.cv.view_pdf": "Voir le PDF",
   "contact.support": "Soutenez mon travail",
   internship: "Stage",
@@ -43,11 +44,11 @@ export const fr: typeof en = {
   "projects.webpals.details": "Tout",
   "projects.crbt.title": "CRBT",
   "projects.crbt.description":
-    "Application de gestion de communautés Discord avec des menus simples, conçu avec des bibliothèques open-source",
+    "Application de gestion de communautés Discord conçu avec des bibliothèques internes open-source",
   "projects.crbt.details": "Bot Discord",
   "projects.mecanume.title": "De la mécanique au numérique",
   "projects.mecanume.description":
-    "Article intéractif sur l'évolution de l'industrie de la technologie",
+    "Article intéractif sur l'histoire de l'industrie technologique, de l'ère mécanique à l'avénement du logiciel",
   "projects.mecanume.details": "Design et code",
 };
 

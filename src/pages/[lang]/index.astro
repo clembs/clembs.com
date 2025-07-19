@@ -24,6 +24,7 @@ import {
   useTranslations,
 } from "@i18n/utils";
 import Layout from "../../layouts/Layout.astro";
+import Avatar from "./_Avatar.astro";
 import Contact from "./_Contact.astro";
 
 const lang = getLangFromUrl(Astro.url);
@@ -33,6 +34,8 @@ const translatePath = useTranslatedPaths(lang);
 
 <Layout>
   <section class="hero">
+    <Avatar />
+
     <div class="text">
       <p class="small-text">
         {t("intro.eyebrow")}

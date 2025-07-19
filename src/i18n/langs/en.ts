@@ -3,6 +3,7 @@ export default {
   about: "about",
   blog: "blog",
   footer_legal_blurb: "All rights reserved.",
+  "intro.tronche.alt": "My highly professional and whimsical face",
   "intro.eyebrow": "Hi, I'm Clément, welcome to my website!",
   "intro.title": "Reliable product designer and developer.",
   "intro.subtext":
