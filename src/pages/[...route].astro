@@ -3,26 +3,28 @@
 export const prerender = false;
 
 import { ui } from "../i18n/ui";
-import {
-  getLangFromUrl,
-  removeTrailingSlash,
-  useTranslatedPaths,
-} from "../i18n/utils";
+import { removeTrailingSlash, useTranslatedPaths } from "../i18n/utils";
 
-const lang = getLangFromUrl(Astro.url);
-const translatePaths = useTranslatedPaths(lang);
+const [_, langParam] = Astro.url.pathname.split("/");
 
 // if there's no lang parameter, detect language and redirect
-if (!Astro.params.lang || !Object.keys(ui).includes(Astro.params.lang)) {
-  const lang = Astro.request.headers.get("Accept-Language");
+if (!langParam || !Object.keys(ui).includes(langParam)) {
+  const acceptedLang = Astro.request.headers.get("Accept-Language");
   const path = removeTrailingSlash(Astro.url.pathname);
 
   // if the lang is french, serve the content in french
-  if (lang?.includes("fr")) {
-    return Astro.redirect(translatePaths(path, "fr"));
+  if (acceptedLang?.includes("fr")) {
+    const translatePaths = useTranslatedPaths("fr");
+    return Astro.redirect(translatePaths(path));
   }
 
   // otherwise serve english
-  return Astro.redirect(translatePaths(path, "en"));
+  const translatePaths = useTranslatedPaths("en");
+  return Astro.redirect(translatePaths(path));
 }
+
+// if the page isnt found, return 404 lol
+return new Response(null, {
+  status: 404,
+});
 ---
