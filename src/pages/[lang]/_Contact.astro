@@ -1,11 +1,11 @@
 ---
 import Message from "@assets/icons/message.svg";
-import Bluesky from "@assets/socials/bluesky.png";
-import GitHub from "@assets/socials/github.png";
-import KoFi from "@assets/socials/kofi.png";
-import Papers from "@assets/socials/papers.png";
-import Thunderbird from "@assets/socials/thunderbird.png";
-import Twitter from "@assets/socials/twitter.png";
+import Bluesky from "@assets/socials/bluesky.webp";
+import GitHub from "@assets/socials/github.webp";
+import KoFi from "@assets/socials/kofi.webp";
+import Papers from "@assets/socials/papers.webp";
+import Thunderbird from "@assets/socials/thunderbird.webp";
+import Twitter from "@assets/socials/twitter.webp";
 import Social, { type SocialProps } from "@components/Social.astro";
 import {
   getLangFromUrl,
@@ -26,7 +26,7 @@ const socials: SocialProps[] = [
   },
   {
     name: "CV",
-    description: "View PDF",
+    description: t("contact.cv.view_pdf"),
     href: translatePath("/cv"),
     img: Papers,
   },
@@ -50,7 +50,7 @@ const socials: SocialProps[] = [
   },
   {
     name: "Ko-Fi",
-    description: "Support my work",
+    description: t("contact.support"),
     href: "https://ko-fi.com/clembs",
     img: KoFi,
   },
@@ -83,7 +83,7 @@ const socials: SocialProps[] = [
     width: 100%;
     max-width: 500px;
 
-    @media (max-width: 768px) {
+    @media (max-width: 600px) {
       grid-template-columns: 1fr;
       gap: 0;
     }
