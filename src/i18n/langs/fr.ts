@@ -4,6 +4,7 @@ export const fr: typeof en = {
   home: "accueil",
   about: "à propos",
   blog: "blog",
+  footer_legal_blurb: "Tous droits réservés.",
   "intro.eyebrow": "Salut, c'est Clément. Bienvenue sur mon site !",
   "intro.title":
     "Designer et développeur produit sur lequel vous pouvez compter.",
@@ -30,11 +31,11 @@ export const fr: typeof en = {
   "projects.uniten.details": "Design et code",
   "projects.jameshuang.title": "James Huang",
   "projects.jameshuang.description":
-    "Implantation de code pour le portfolio d'un designer, avec un CMS personnalisé sur mesure",
+    "Implantation de code pour le portfolio d'un designer, avec un CMS conçu sur mesure",
   "projects.jameshuang.details": "Implantation",
   "projects.ix.title": "Ix",
   "projects.ix.description":
-    "Manuel en HTML statique pour un langage de programmation, au design minimaliste et avec des intéractions en CSS",
+    "Manuel pour un langage de programmation au design minimaliste avec des intéractions en CSS",
   "projects.ix.details": "Design et code",
   "projects.webpals.title": "Webpals",
   "projects.webpals.description":

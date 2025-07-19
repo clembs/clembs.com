@@ -2,6 +2,7 @@ export default {
   home: "home",
   about: "about",
   blog: "blog",
+  footer_legal_blurb: "All rights reserved.",
   "intro.eyebrow": "Hi, I'm Clément, welcome to my website!",
   "intro.title": "Reliable product designer and developer.",
   "intro.subtext":
