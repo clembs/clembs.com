@@ -1,11 +1,11 @@
 ---
-import Clembs from "../assets/icons/clembs.svg";
-import Globe from "../assets/icons/globe.svg";
+import Clembs from "@assets/icons/clembs.svg";
+import Globe from "@assets/icons/globe.svg";
 import {
   getLangFromUrl,
   useTranslations,
   useTranslatedPaths,
-} from "../i18n/utils";
+} from "@i18n/utils";
 
 const lang = getLangFromUrl(Astro.url);
 const translatePaths = useTranslatedPaths(lang);

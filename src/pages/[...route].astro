@@ -2,8 +2,8 @@
 // server route
 export const prerender = false;
 
-import { ui } from "../i18n/ui";
-import { removeTrailingSlash, useTranslatedPaths } from "../i18n/utils";
+import { ui } from "@i18n/ui";
+import { removeTrailingSlash, useTranslatedPaths } from "@i18n/utils";
 
 const [_, langParam] = Astro.url.pathname.split("/");
 

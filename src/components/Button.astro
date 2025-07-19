@@ -1,11 +1,10 @@
 ---
-const {
-  href,
-  variant = "primary",
-}: {
+type Props = {
   href?: string;
   variant?: "primary" | "secondary";
-} = Astro.props;
+};
+
+const { href, variant = "primary" } = Astro.props;
 ---
 
 <a class="clickable" {href} data-variant={variant}>
