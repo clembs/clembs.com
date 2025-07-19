@@ -1,0 +1,21 @@
+<script>
+  // in case i die and never update the year or smth
+  document.querySelector("#copyyear")!.innerHTML = new Date()
+    .getFullYear()
+    .toString();
+</script>
+
+<footer>
+  &copy;
+  <span id="copyyear">
+    {new Date().getFullYear()}
+  </span>
+  Clembs. All rights reserved.
+</footer>
+
+<style lang="scss">
+  footer {
+    margin: 1.5rem auto;
+    text-align: center;
+  }
+</style>
