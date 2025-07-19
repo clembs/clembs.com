@@ -17,7 +17,7 @@ interface Props {
   tools: (typeof Tools)[number]["name"][];
   baseHue: number;
   url?: string;
-  images?: ImageMetadata[];
+  images?: (ImageMetadata & { alt: string })[];
 }
 
 const { key, date, contract, tools, baseHue, url, images } = Astro.props;
@@ -65,9 +65,9 @@ const toolDetails = tools.map((t) => Tools.find(({ name }) => name === t)!);
 
   {
     images ? (
-      <div class="image">
+      <div class="image-grid">
         {images?.map((image) => (
-          <img {...image} />
+          <img {...image} draggable="false" />
         ))}
       </div>
     ) : (
@@ -198,6 +198,35 @@ const toolDetails = tools.map((t) => Tools.find(({ name }) => name === t)!);
             height: 1rem;
             fill: var(--color-700);
           }
+        }
+      }
+    }
+
+    .image-grid {
+      display: flex;
+      justify-content: space-evenly;
+      gap: 1rem;
+      overflow: hidden;
+      border-radius: 0 0 2.25rem 2.25rem;
+      margin-top: auto;
+
+      :global(img) {
+        width: 100%;
+      }
+
+      &:has(:nth-child(2)) {
+        padding: 0 1rem;
+      }
+
+      @media (max-width: 700px) {
+        :nth-child(3) {
+          display: none;
+        }
+      }
+
+      @media (max-width: 450px) {
+        :nth-child(2) {
+          display: none;
         }
       }
     }

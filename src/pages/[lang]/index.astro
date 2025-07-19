@@ -5,6 +5,14 @@ export function getStaticPaths() {
 
 import Briefcase from "@assets/icons/briefcase.svg";
 import Bulb from "@assets/icons/bulb.svg";
+import Ix from "@assets/images/ix.webp";
+import JamesHuang from "@assets/images/jameshuang.webp";
+import Uniten1 from "@assets/images/uniten-1.webp";
+import Uniten2 from "@assets/images/uniten-2.webp";
+import Uniten3 from "@assets/images/uniten-3.webp";
+import Webpals1 from "@assets/images/webpals-1.webp";
+import Webpals2 from "@assets/images/webpals-2.webp";
+import Webpals3 from "@assets/images/webpals-3.webp";
 import Button from "@components/Button.astro";
 import ProjectCard from "@components/ProjectCard.astro";
 import {
@@ -59,6 +67,20 @@ const translatePath = useTranslatedPaths(lang);
         tools={["Flutter", "Firebase", "PostgreSQL"]}
         baseHue={31}
         url="https://uniten.fr"
+        images={[
+          {
+            ...Uniten1,
+            alt: 'Mobile welcome screen reading "Ready to play?" with a tennis court backdrop image.',
+          },
+          {
+            ...Uniten2,
+            alt: "Mobile home screen with a list of tennis sessions alongside a list of filters.",
+          },
+          {
+            ...Uniten3,
+            alt: 'Mobile "create session" screen with a search bar for clubs and some suggestions.',
+          },
+        ]}
       />
       <ProjectCard
         key="jameshuang"
@@ -67,6 +89,12 @@ const translatePath = useTranslatedPaths(lang);
         tools={["Svelte", "Sass"]}
         baseHue={68}
         url="https://jameshuang.design"
+        images={[
+          {
+            ...JamesHuang,
+            alt: 'A dark-themed website, showing a big title reading "James Huang, multidisciplinary designer." with a graphic showing a laptop with multiple posters beneath.',
+          },
+        ]}
       />
       <ProjectCard
         key="ix"
@@ -75,6 +103,12 @@ const translatePath = useTranslatedPaths(lang);
         tools={["HTML", "CSS"]}
         baseHue={203}
         url="https://language-manual.pages.dev"
+        images={[
+          {
+            ...Ix,
+            alt: "A minimalist grey website, very verbose text and a graphic showing a fake code editor.",
+          },
+        ]}
       />
     </div>
   </section>
@@ -96,6 +130,20 @@ const translatePath = useTranslatedPaths(lang);
         tools={["Svelte", "Sass", "PostgreSQL"]}
         baseHue={250}
         url="https://webpals.me/clembs"
+        images={[
+          {
+            ...Webpals1,
+            alt: "Mobile Webpals profile for Clembs. Very simplistic design in shades of gray. Edit buttons are shown on some widgets.",
+          },
+          {
+            ...Webpals2,
+            alt: "Mobile Webpals profile for Grld. It features a dark design with an anime character as the backdrop.",
+          },
+          {
+            ...Webpals3,
+            alt: "Mobile Webpals profile for YourDoctor. Designed in shades of dark blue with very rounded corners and thick grey borders on widgets.",
+          },
+        ]}
       />
       <ProjectCard
         key="crbt"
@@ -169,7 +217,7 @@ const translatePath = useTranslatedPaths(lang);
       grid-column: span 2;
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 680px) {
       grid-template-columns: 1fr;
 
       :global(> :first-child) {
