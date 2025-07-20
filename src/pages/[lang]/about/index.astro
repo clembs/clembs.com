@@ -1,0 +1,65 @@
+---
+export function getStaticPaths() {
+  return [{ params: { lang: "en" } }, { params: { lang: "fr" } }];
+}
+
+import Layout from "../../../layouts/Layout.astro";
+
+function getAge() {
+  const birthdate = new Date("2006-07-05");
+  const diffMs = Date.now() - birthdate.getTime();
+
+  return Math.floor(diffMs / 1000 / 60 / 60 / 24 / 365);
+}
+---
+
+<Layout>
+  <main>
+    <h1>About</h1>
+
+    <h2>About me</h2>
+
+    <p>
+      I'm Clément, a {getAge()} years old developer
+    </p>
+
+    <h3>About clembs.com</h3>
+
+    <p>
+      Formerly known as clembs.xyz, making a website for my non-dev projects has
+      really kickstarted my interest in web development. I recall bothering <a
+        href="https://paperclover.net"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="link"
+      >
+        chloe
+      </a> a whole lot learning about the ins-and-outs of HTML, CSS and JavaScript,
+      and making messes using tons of iframes...
+    </p>
+
+    <p>
+      Nowadays, this site was entirely designed and coded by me, with some help
+      from this tool called <a
+        href="https://astro.build"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="link">Astro</a
+      >. I'm using <a
+        href="https://www.omnibus-type.com/fonts/chivo/"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="link"
+      >
+        Chivo by Omnibus-Type
+      </a> for body text, and <a
+        href="https://fraunces.undercase.xyz/"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="link"
+      >
+        Fraunces by Undercase Type
+      </a> for header text.
+    </p>
+  </main>
+</Layout>
