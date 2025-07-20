@@ -1,6 +1,7 @@
 ---
 import External from "@assets/icons/external.svg";
 import Copy from "@assets/icons/copy.svg";
+import { Image } from "astro:assets";
 
 type Props = {
   name: string;
@@ -56,7 +57,7 @@ export { type Props as SocialProps };
       target="_blank"
       rel="noreferrer noopener"
     >
-      <img {...social.img} alt={social.name} />
+      <Image src={social.img} alt="" aria-hidden="true" />
 
       <div class="text">
         <span class="name">
@@ -73,7 +74,7 @@ export { type Props as SocialProps };
       class="social"
       data-text={social.text}
     >
-      <img {...social.img} alt={social.name} />
+      <Image src={social.img} alt="" aria-hidden="true" />
 
       <div class="text">
         <span class="name">

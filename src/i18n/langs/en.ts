@@ -23,6 +23,7 @@ export default {
   "college-project": "College project",
   "personal-project": "Personal project",
   tba: "TBA",
+  project_view: "View {project}",
   "projects.uniten.title": "UNITEN",
   "projects.uniten.description":
     "App for tennis players to find partners, made from scratch in 8 weeks",

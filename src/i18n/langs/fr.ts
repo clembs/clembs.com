@@ -26,6 +26,7 @@ export const fr: typeof en = {
   "college-project": "Projet universitaire",
   "personal-project": "Projet personnel",
   tba: "En cours de développement",
+  project_view: "Voir {project}",
   "projects.uniten.title": "UNITEN",
   "projects.uniten.description":
     "App mobile permettant aux joueurs de tennis de trouver des partenaires, créée de zéro en 8 semaines",

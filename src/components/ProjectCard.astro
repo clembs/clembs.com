@@ -3,6 +3,7 @@ import External from "@assets/icons/external.svg";
 import Tools from "@components/_tools";
 import { getLangFromUrl, useTranslations } from "@i18n/utils";
 import type { ImageMetadata } from "astro";
+import { Image } from "astro:assets";
 
 interface Props {
   key: string;
@@ -35,12 +36,11 @@ const toolDetails = tools.map((t) => Tools.find(({ name }) => name === t)!);
       <div class="app">
         {
           icon && (
-            <img
-              {...icon}
-              width="50"
-              height="50"
+            <Image
+              src={icon}
               alt={`Icon for ${t(`projects.${key}.title`)}`}
               class:list={[{ pixelate: key === "mecanume" }, "icon"]}
+              draggable="false"
             />
           )
         }
@@ -53,7 +53,15 @@ const toolDetails = tools.map((t) => Tools.find(({ name }) => name === t)!);
         </div>
       </div>
 
-      <a href={url} target="_blank" rel="noopener noreferrer">
+      <a
+        href={url}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={t("project_view").replace(
+          "{project}",
+          t(`projects.${key}.title`)
+        )}
+      >
         <div class="button">
           <External />
         </div>
@@ -83,7 +91,9 @@ const toolDetails = tools.map((t) => Tools.find(({ name }) => name === t)!);
     images ? (
       <div class="image-grid">
         {images?.map((image) => (
-          <img {...image} draggable="false" />
+          <div>
+            <Image src={image} alt={image.alt} draggable="false" />
+          </div>
         ))}
       </div>
     ) : (
@@ -247,6 +257,7 @@ const toolDetails = tools.map((t) => Tools.find(({ name }) => name === t)!);
 
       :global(img) {
         width: 100%;
+        flex: 1;
       }
 
       &:has(:nth-child(2)) {

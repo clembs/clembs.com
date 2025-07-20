@@ -1,18 +1,20 @@
 ---
 import Tronche from "@assets/tronche.webp";
 import { getLangFromUrl, useTranslations } from "@i18n/utils";
+import { Image } from "astro:assets";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 ---
 
 <div id="tronche">
-  <img
-    {...Tronche}
-    height={88}
-    width={88}
+  <Image
+    src={Tronche}
+    height={176}
+    width={176}
     alt={t("intro.tronche.alt")}
     draggable="false"
+    loading="eager"
   />
 </div>
 
