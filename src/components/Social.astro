@@ -1,12 +1,11 @@
 ---
 import External from "@assets/icons/external.svg";
 import Copy from "@assets/icons/copy.svg";
-import { Image } from "astro:assets";
 
 type Props = {
   name: string;
   description: string;
-  img: ImageMetadata;
+  icon: typeof Copy;
 } & (
   | {
       href: string;
@@ -57,7 +56,9 @@ export { type Props as SocialProps };
       target="_blank"
       rel="noreferrer noopener"
     >
-      <Image src={social.img} alt="" aria-hidden="true" />
+      <social.icon />
+      {/* <Fragment set:html={social.icon} /> */}
+      {/* <Image src={social.icon} alt="" aria-hidden="true" /> */}
 
       <div class="text">
         <span class="name">
@@ -74,7 +75,9 @@ export { type Props as SocialProps };
       class="social"
       data-text={social.text}
     >
-      <Image src={social.img} alt="" aria-hidden="true" />
+      <social.icon />
+      {/* <Fragment set:html={social.icon} /> */}
+      {/* <Image src={social.icon} alt="" aria-hidden="true" /> */}
 
       <div class="text">
         <span class="name">
@@ -122,7 +125,7 @@ export { type Props as SocialProps };
       }
     }
 
-    img {
+    :global(svg:first-child) {
       height: 2rem;
       width: 2rem;
       border-radius: 0.5rem;
