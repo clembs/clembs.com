@@ -5,6 +5,7 @@ import vercel from "@astrojs/vercel";
 
 // https://astro.build/config
 export default defineConfig({
+  site: "https://clembs.com",
   trailingSlash: "never",
   adapter: vercel(),
 });
