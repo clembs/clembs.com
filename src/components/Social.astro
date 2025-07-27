@@ -37,7 +37,7 @@ export { type Props as SocialProps };
 
       navigator.clipboard.writeText(text);
 
-      let icon = b.querySelector("svg")!;
+      let icon = b.querySelector(".copy-icon")!;
 
       icon.innerHTML = Check;
 
@@ -57,8 +57,6 @@ export { type Props as SocialProps };
       rel="noreferrer noopener"
     >
       <social.icon />
-      {/* <Fragment set:html={social.icon} /> */}
-      {/* <Image src={social.icon} alt="" aria-hidden="true" /> */}
 
       <div class="text">
         <span class="name">
@@ -76,14 +74,14 @@ export { type Props as SocialProps };
       data-text={social.text}
     >
       <social.icon />
-      {/* <Fragment set:html={social.icon} /> */}
-      {/* <Image src={social.icon} alt="" aria-hidden="true" /> */}
 
       <div class="text">
         <span class="name">
           {social.name}
 
-          <Copy />
+          <div class="copy-icon">
+            <Copy />
+          </div>
         </span>
         <span class="description small-text">{social.description}</span>
       </div>
