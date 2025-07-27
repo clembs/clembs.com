@@ -26,13 +26,14 @@ import {
 import Layout from "../../layouts/Layout.astro";
 import Avatar from "./_Avatar.astro";
 import Contact from "./_Contact.astro";
+import AvailabilityCTA from "@components/AvailabilityCTA.astro";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const translatePath = useTranslatedPaths(lang);
 ---
 
-<Layout>
+<Layout title="Clément Voisin" description={t("intro.subtext")}>
   <section class="hero">
     <Avatar />
 
@@ -45,6 +46,8 @@ const translatePath = useTranslatedPaths(lang);
 
       <p>{t("intro.subtext")}</p>
     </div>
+
+    <AvailabilityCTA />
 
     <div class="buttons">
       <Button href={translatePath("/cv")}>
@@ -183,8 +186,11 @@ const translatePath = useTranslatedPaths(lang);
     align-items: center;
     gap: 1rem;
 
-    max-width: 42ch;
     text-align: center;
+
+    p {
+      max-width: 42ch;
+    }
   }
 
   .buttons {
