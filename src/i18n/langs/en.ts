@@ -9,7 +9,7 @@ export default {
   "intro.title": "Reliable product designer and developer",
   "intro.subtext":
     "French undergraduate in Computer Science, I mix design and code to create high-class products, websites and apps.",
-  availability_cta: "Looking for an internship for Sept. 2025",
+  availability_cta: "Looking for an internship",
   "cta.read_cv": "Read my CV",
   "cta.contact_me": "Contact me",
   section_work: "Professional work",

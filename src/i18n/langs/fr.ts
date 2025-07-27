@@ -12,7 +12,7 @@ export const fr: typeof en = {
     "Designer et développeur produit sur lequel vous pouvez compter",
   "intro.subtext":
     "Étudiant en BUT Informatique à Toulouse, je mélange design et code pour concevoir des produits, sites et applications qualitatives.",
-  availability_cta: "En recherche d'alternance pour 2025-2026",
+  availability_cta: "En recherche d'alternance",
   "cta.read_cv": "Lire mon CV",
   "cta.contact_me": "Me contacter",
   section_work: "Expérience professionnelle",
