@@ -11,16 +11,20 @@ const lang = getLangFromUrl(Astro.url);
 const translatePaths = useTranslatedPaths(lang);
 const t = useTranslations(lang);
 
-const targets = [
-  {
-    name: t("about"),
-    href: translatePaths("/about"),
-  },
-  {
-    name: t("blog"),
-    href: translatePaths("/blog"),
-  },
-];
+// const targets = [
+//   {
+//     name: t("about"),
+//     href: translatePaths("/about"),
+//   },
+//   {
+//     name: t("blog"),
+//     href: translatePaths("/blog"),
+//   },
+//   {
+//     name: t("now"),
+//     href: translatePaths("/now"),
+//   },
+// ];
 ---
 
 <script>
@@ -53,7 +57,7 @@ const targets = [
   </a>
 
   <div class="right">
-    <nav>
+    <!-- <nav>
       <ul>
         {
           targets.map((t) => (
@@ -65,7 +69,7 @@ const targets = [
           ))
         }
       </ul>
-    </nav>
+    </nav> -->
     <input type="checkbox" id="language-input" aria-hidden="true" />
 
     <label
@@ -97,6 +101,8 @@ const targets = [
     padding: 0.5rem 1rem 0.5rem 0.5rem;
     max-width: 800px;
     width: calc(100% - 1.5rem);
+
+    // view-transition-name: navbar;
   }
 
   .logo {
