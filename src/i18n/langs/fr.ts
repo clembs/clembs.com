@@ -3,14 +3,16 @@ import type en from "./en";
 export const fr: typeof en = {
   home: "accueil",
   about: "à propos",
+  now: "maintenant",
   blog: "blog",
   footer_legal_blurb: "Tous droits réservés.",
   "intro.tronche.alt": "Ma tête ulta professionnelle et pleine de joie",
   "intro.eyebrow": "Salut, c'est Clément. Bienvenue sur mon site !",
   "intro.title":
-    "Designer et développeur produit sur lequel vous pouvez compter.",
+    "Designer et développeur produit sur lequel vous pouvez compter",
   "intro.subtext":
     "Étudiant en BUT Informatique à Toulouse, je mélange design et code pour concevoir des produits, sites et applications qualitatives.",
+  availability_cta: "En recherche d'alternance pour 2025-2026",
   "cta.read_cv": "Lire mon CV",
   "cta.contact_me": "Me contacter",
   section_work: "Expérience professionnelle",

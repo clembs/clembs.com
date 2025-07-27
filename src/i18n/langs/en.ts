@@ -1,13 +1,15 @@
 export default {
   home: "home",
   about: "about",
+  now: "now",
   blog: "blog",
   footer_legal_blurb: "All rights reserved.",
   "intro.tronche.alt": "My highly professional and whimsical face",
   "intro.eyebrow": "Hi, I'm Clément, welcome to my website!",
-  "intro.title": "Reliable product designer and developer.",
+  "intro.title": "Reliable product designer and developer",
   "intro.subtext":
     "French undergraduate in Computer Science, I mix design and code to create high-class products, websites and apps.",
+  availability_cta: "Looking for an internship for Sept. 2025",
   "cta.read_cv": "Read my CV",
   "cta.contact_me": "Contact me",
   section_work: "Professional work",
