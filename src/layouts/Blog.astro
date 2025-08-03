@@ -1,0 +1,92 @@
+---
+import External from "@assets/icons/external.svg";
+import Share from "@assets/icons/share.svg";
+import Button from "@components/Button.astro";
+import type { z } from "astro:content";
+import type { BlogSchema } from "src/content.config";
+import "../styles/blog.scss";
+import Layout from "./Layout.astro";
+
+type Props = {
+  frontmatter: z.infer<typeof BlogSchema>;
+};
+
+const { frontmatter } = Astro.props;
+
+const createdAt = new Date(frontmatter.createdAt);
+---
+
+<Layout title={frontmatter.title} description={frontmatter.summary}>
+  <div id="summary-header">
+    <h1>{frontmatter.title}</h1>
+
+    <p>
+      <time datetime={createdAt.toDateString()}>
+        {
+          createdAt.toLocaleString("en-US", {
+            month: "long",
+            day: "numeric",
+            year: "numeric",
+          })
+        }
+      </time>
+      {
+        frontmatter.brandName
+          ? `• Client work paid for by ${frontmatter.brandName}`
+          : ""
+      }
+    </p>
+
+    <div class="buttons">
+      {
+        frontmatter.projectUrl ? (
+          <Button href={frontmatter.projectUrl}>
+            <External />
+            View project
+          </Button>
+        ) : (
+          ""
+        )
+      }
+
+      <Button id="share-sheet" variant="secondary">
+        <Share />
+        Share article
+      </Button>
+    </div>
+
+    {
+      frontmatter.bannerPath ? (
+        <img
+          class="post-banner"
+          src={frontmatter.bannerPath}
+          alt={frontmatter.bannerAlt}
+          style={`background-image: url(${frontmatter.bannerThumbnailPath});`}
+        />
+      ) : (
+        ""
+      )
+    }
+  </div>
+
+  <main>
+    <slot />
+  </main>
+</Layout>
+
+<style lang="scss">
+  #summary-header,
+  main {
+    padding: 1rem;
+    max-width: 75ch;
+    margin: 1rem auto;
+  }
+
+  #summary-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    text-align: center;
+  }
+</style>
