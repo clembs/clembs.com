@@ -1,27 +1,42 @@
 ---
 type Props = {
   href?: string;
+  id?: string;
   variant?: "primary" | "secondary";
 };
 
-const { href, variant = "primary" } = Astro.props;
+const { href, id, variant = "primary" } = Astro.props;
 ---
 
-<a class="clickable" {href} data-variant={variant}>
-  <slot />
-</a>
+{
+  href ? (
+    <a class="clickable" {href} {id} data-variant={variant}>
+      <slot />
+    </a>
+  ) : (
+    <button class="clickable" {id} data-variant={variant}>
+      <slot />
+    </button>
+  )
+}
 
 <style lang="scss">
-  a {
+  a,
+  button {
     display: flex;
-    padding: 0.75rem 1.25rem;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
     border-radius: 99px;
     user-select: none;
+    cursor: pointer;
+    appearance: none;
 
     &[data-variant="primary"] {
       --hue: 0.75;
       background-color: var(--color-500);
       color: var(--color-white);
+      border: 1px solid transparent;
 
       @media (hover: hover) {
         &:hover {
@@ -39,6 +54,15 @@ const { href, variant = "primary" } = Astro.props;
         &:hover {
           background-color: var(--color-100);
         }
+      }
+    }
+
+    &:has(svg) {
+      padding-left: 0.75rem;
+
+      :global(svg) {
+        height: 1.5rem;
+        width: 1.5rem;
       }
     }
   }
