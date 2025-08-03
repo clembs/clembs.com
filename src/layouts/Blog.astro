@@ -18,47 +18,48 @@ const createdAt = new Date(frontmatter.createdAt);
 
 <Layout title={frontmatter.title} description={frontmatter.summary}>
   <div id="summary-header">
-    <h1>{frontmatter.title}</h1>
+    <div class="text">
+      <h1>{frontmatter.title}</h1>
 
-    <p>
-      <time datetime={createdAt.toDateString()}>
+      <p>
+        <time datetime={createdAt.toDateString()}>
+          {
+            createdAt.toLocaleString("en-US", {
+              month: "long",
+              day: "numeric",
+              year: "numeric",
+            })
+          }
+        </time>
         {
-          createdAt.toLocaleString("en-US", {
-            month: "long",
-            day: "numeric",
-            year: "numeric",
-          })
+          frontmatter.brandName
+            ? `• Client work paid for by ${frontmatter.brandName}`
+            : ""
         }
-      </time>
-      {
-        frontmatter.brandName
-          ? `• Client work paid for by ${frontmatter.brandName}`
-          : ""
-      }
-    </p>
+      </p>
 
-    <div class="buttons">
-      {
-        frontmatter.projectUrl ? (
-          <Button href={frontmatter.projectUrl}>
-            <External />
-            View project
-          </Button>
-        ) : (
-          ""
-        )
-      }
+      <div class="buttons">
+        {
+          frontmatter.projectUrl ? (
+            <Button href={frontmatter.projectUrl}>
+              <External />
+              View project
+            </Button>
+          ) : (
+            ""
+          )
+        }
 
-      <Button id="share-sheet" variant="secondary">
-        <Share />
-        Share article
-      </Button>
+        <Button id="share-sheet" variant="secondary">
+          <Share />
+          Share article
+        </Button>
+      </div>
     </div>
 
     {
       frontmatter.bannerPath ? (
         <img
-          class="post-banner"
           src={frontmatter.bannerPath}
           alt={frontmatter.bannerAlt}
           style={`background-image: url(${frontmatter.bannerThumbnailPath});`}
@@ -78,15 +79,38 @@ const createdAt = new Date(frontmatter.createdAt);
   #summary-header,
   main {
     padding: 1rem;
-    max-width: 75ch;
     margin: 1rem auto;
+  }
+
+  main {
+    max-width: 75ch;
   }
 
   #summary-header {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1rem;
-    text-align: center;
+    gap: 3rem;
+
+    .text {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      text-align: center;
+      max-width: 75ch;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    img {
+      border-radius: 1.25rem;
+      border: 2px solid var(--color-850);
+      width: 100%;
+      max-width: calc(75ch + 100px);
+    }
   }
 </style>

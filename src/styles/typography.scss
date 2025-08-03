@@ -33,7 +33,7 @@ h2,
 h3,
 .heading-3 {
   font-family: var(--font-body);
-  font-size: 1.125rem;
+  font-size: clamp(1.125rem, 5vw, 1.5rem);
   font-weight: 500;
   line-height: 1.25;
   text-wrap: balance;

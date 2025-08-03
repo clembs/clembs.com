@@ -4,7 +4,8 @@ main {
   h3,
   h4,
   h5,
-  h6 {
+  h6,
+  p {
     margin-top: 1em;
     margin-bottom: 0.8em;
   }
@@ -23,16 +24,11 @@ main {
     border-left: 0.25em solid var(--color-500);
     font-style: italic;
 
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6:first-child {
+    > *:first-child {
       margin-top: 0;
     }
 
-    p:last-child {
+    > *:last-child {
       margin-bottom: 0;
     }
   }
