@@ -9,10 +9,11 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/vercel": "^8.2.2",
+    "@astrojs/node": "^9.3.3",
     "astro": "^5.11.0"
   },
   "devDependencies": {
+    "remark-breaks": "^4.0.0",
     "sass": "^1.89.2"
   }
 }

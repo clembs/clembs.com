@@ -1,11 +1,18 @@
 // @ts-check
+import node from "@astrojs/node";
 import { defineConfig } from "astro/config";
-
-import vercel from "@astrojs/vercel";
+import remarkBreaks from "remark-breaks";
 
 // https://astro.build/config
 export default defineConfig({
   site: "https://clembs.com",
   trailingSlash: "never",
-  adapter: vercel(),
+
+  adapter: node({
+    mode: "standalone",
+  }),
+
+  markdown: {
+    remarkPlugins: [remarkBreaks],
+  },
 });
