@@ -28,7 +28,7 @@ export default {
   project_view: "View {project}",
   "projects.uniten.title": "UNITEN",
   "projects.uniten.description":
-    "App for tennis players to find partners, made from scratch in 8 weeks",
+    "App for tennis players to find partners. Crafting new features and redesigning",
   "projects.uniten.details": "Design + Code",
   "projects.jameshuang.title": "James Huang",
   "projects.jameshuang.description":

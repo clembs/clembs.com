@@ -31,7 +31,7 @@ export const fr: typeof en = {
   project_view: "Voir {project}",
   "projects.uniten.title": "UNITEN",
   "projects.uniten.description":
-    "App mobile permettant aux joueurs de tennis de trouver des partenaires, créée de zéro en 8 semaines",
+    "App mobile permettant aux joueurs de tennis de trouver des partenaires, réalisée en 8 semaines avec 2 stagiaires",
   "projects.uniten.details": "Design et code",
   "projects.jameshuang.title": "James Huang",
   "projects.jameshuang.description":
