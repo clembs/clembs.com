@@ -14,7 +14,6 @@
     "astro": "^5.11.0"
   },
   "devDependencies": {
-    "remark-breaks": "^4.0.0",
     "sass": "^1.89.2"
   }
 }

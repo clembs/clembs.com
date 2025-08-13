@@ -1,7 +1,7 @@
 // @ts-check
 import node from "@astrojs/node";
 import { defineConfig } from "astro/config";
-import remarkBreaks from "remark-breaks";
+import mdx from "@astrojs/mdx";
 
 // https://astro.build/config
 export default defineConfig({
@@ -12,7 +12,5 @@ export default defineConfig({
     mode: "standalone",
   }),
 
-  markdown: {
-    remarkPlugins: [remarkBreaks],
-  },
+  integrations: [mdx()],
 });
