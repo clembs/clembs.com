@@ -1,30 +1,26 @@
 ---
 import Clembs from "@assets/icons/clembs.svg";
 import Globe from "@assets/icons/globe.svg";
-import {
-  getLangFromUrl,
-  useTranslations,
-  useTranslatedPaths,
-} from "@i18n/utils";
+import { getLocaleFromUrl, useTranslations, useTranslatedPaths } from "@i18n";
 
-const lang = getLangFromUrl(Astro.url);
+const lang = getLocaleFromUrl(Astro.url);
 const translatePaths = useTranslatedPaths(lang);
 const t = useTranslations(lang);
 
-// const targets = [
-//   {
-//     name: t("about"),
-//     href: translatePaths("/about"),
-//   },
-//   {
-//     name: t("blog"),
-//     href: translatePaths("/blog"),
-//   },
-//   {
-//     name: t("now"),
-//     href: translatePaths("/now"),
-//   },
-// ];
+const targets = [
+  {
+    name: t("blog"),
+    href: translatePaths("/blog"),
+  },
+];
+// {
+//   name: t("about"),
+//   href: translatePaths("/about"),
+// },
+// {
+//   name: t("now"),
+//   href: translatePaths("/now"),
+// },
 ---
 
 <script>
@@ -57,7 +53,7 @@ const t = useTranslations(lang);
   </a>
 
   <div class="right">
-    <!-- <nav>
+    <nav>
       <ul>
         {
           targets.map((t) => (
@@ -69,7 +65,7 @@ const t = useTranslations(lang);
           ))
         }
       </ul>
-    </nav> -->
+    </nav>
     <input type="checkbox" id="language-input" aria-hidden="true" />
 
     <label

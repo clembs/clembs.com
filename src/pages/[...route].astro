@@ -2,24 +2,28 @@
 // server route
 export const prerender = false;
 
-import { ui } from "@i18n/ui";
-import { removeTrailingSlash, useTranslatedPaths } from "@i18n/utils";
+import {
+  removeTrailingSlash,
+  useTranslatedPaths,
+  localeCodes,
+  defaultLocale,
+} from "@i18n";
 
 const [_, langParam] = Astro.url.pathname.split("/");
 
 // if there's no lang parameter, detect language and redirect
-if (!langParam || !Object.keys(ui).includes(langParam)) {
-  const acceptedLang = Astro.request.headers.get("Accept-Language");
+if (!langParam || !localeCodes.includes(langParam)) {
+  const headerLang = Astro.request.headers.get("Accept-Language");
   const path = removeTrailingSlash(Astro.url.pathname);
 
   // if the lang is french, serve the content in french
-  if (acceptedLang?.includes("fr")) {
+  if (headerLang?.includes("fr")) {
     const translatePaths = useTranslatedPaths("fr");
     return Astro.redirect(translatePaths(path));
   }
 
   // otherwise serve english
-  const translatePaths = useTranslatedPaths("en");
+  const translatePaths = useTranslatedPaths(defaultLocale);
   return Astro.redirect(translatePaths(path));
 }
 

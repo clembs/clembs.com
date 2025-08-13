@@ -6,14 +6,21 @@ import type { z } from "astro:content";
 import type { BlogSchema } from "src/content.config";
 import "../styles/blog.scss";
 import Layout from "./Layout.astro";
+import { Image } from "astro:assets";
+import { getLocaleFromUrl } from "@i18n";
 
 type Props = {
-  frontmatter: z.infer<typeof BlogSchema>;
+  frontmatter: z.infer<ReturnType<typeof BlogSchema>>;
 };
 
 const { frontmatter } = Astro.props;
 
 const createdAt = new Date(frontmatter.createdAt);
+const lastEditedAt = frontmatter.lastEditedAt
+  ? new Date(frontmatter.lastEditedAt)
+  : undefined;
+
+const lang = getLocaleFromUrl(Astro.url);
 ---
 
 <Layout title={frontmatter.title} description={frontmatter.summary}>
@@ -24,17 +31,29 @@ const createdAt = new Date(frontmatter.createdAt);
       <p>
         <time datetime={createdAt.toDateString()}>
           {
-            createdAt.toLocaleString("en-US", {
+            createdAt.toLocaleString(lang, {
               month: "long",
               day: "numeric",
               year: "numeric",
             })
           }
         </time>
+        {frontmatter.clientText ? `• ${frontmatter.clientText}` : ""}
         {
-          frontmatter.brandName
-            ? `• Client work paid for by ${frontmatter.brandName}`
-            : ""
+          lastEditedAt ? (
+            <span class="edited">
+              • Edited on
+              <time datetime={lastEditedAt.toDateString()}>
+                {lastEditedAt.toLocaleString(lang, {
+                  month: "long",
+                  day: "numeric",
+                  year: "numeric",
+                })}
+              </time>
+            </span>
+          ) : (
+            ""
+          )
         }
       </p>
 
@@ -59,7 +78,7 @@ const createdAt = new Date(frontmatter.createdAt);
 
     {
       frontmatter.bannerPath ? (
-        <img
+        <Image
           src={frontmatter.bannerPath}
           alt={frontmatter.bannerAlt}
           style={`background-image: url(${frontmatter.bannerThumbnailPath});`}
@@ -96,7 +115,7 @@ const createdAt = new Date(frontmatter.createdAt);
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 1rem;
+      gap: 1.25rem;
       text-align: center;
       max-width: 75ch;
     }
@@ -112,5 +131,9 @@ const createdAt = new Date(frontmatter.createdAt);
       width: 100%;
       max-width: calc(75ch + 100px);
     }
+  }
+
+  .edited {
+    color: var(--color-600);
   }
 </style>

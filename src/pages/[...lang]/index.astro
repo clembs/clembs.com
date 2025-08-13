@@ -1,7 +1,5 @@
 ---
-export function getStaticPaths() {
-  return [{ params: { lang: "en" } }, { params: { lang: "fr" } }];
-}
+export const getStaticPaths = generateLangStaticPaths;
 
 import Briefcase from "@assets/icons/briefcase.svg";
 import Bulb from "@assets/icons/bulb.svg";
@@ -19,16 +17,17 @@ import Webpals3 from "@assets/project-images/webpals-3.webp";
 import Button from "@components/Button.astro";
 import ProjectCard from "@components/ProjectCard.astro";
 import {
-  getLangFromUrl,
+  getLocaleFromUrl,
   useTranslatedPaths,
   useTranslations,
-} from "@i18n/utils";
+  generateLangStaticPaths,
+} from "@i18n";
 import Layout from "../../layouts/Layout.astro";
 import Avatar from "./_Avatar.astro";
 import Contact from "./_Contact.astro";
 import AvailabilityCTA from "@components/AvailabilityCTA.astro";
 
-const lang = getLangFromUrl(Astro.url);
+const lang = getLocaleFromUrl(Astro.url);
 const t = useTranslations(lang);
 const translatePath = useTranslatedPaths(lang);
 ---

@@ -1,7 +1,7 @@
 ---
 import External from "@assets/icons/external.svg";
 import Tools from "@components/_tools";
-import { getLangFromUrl, useTranslations } from "@i18n/utils";
+import { getLocaleFromUrl, useTranslations } from "@i18n";
 import type { ImageMetadata } from "astro";
 import { Image } from "astro:assets";
 
@@ -24,7 +24,7 @@ interface Props {
 
 const { key, date, contract, tools, baseHue, url, icon, images } = Astro.props;
 
-const lang = getLangFromUrl(Astro.url);
+const lang = getLocaleFromUrl(Astro.url);
 const t = useTranslations(lang);
 
 const toolDetails = tools.map((t) => Tools.find(({ name }) => name === t)!);

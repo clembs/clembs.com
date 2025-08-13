@@ -1,25 +1,26 @@
-import { defineCollection, z } from "astro:content";
+import { defineCollection, z, type ImageFunction } from "astro:content";
 import { glob } from "astro/loaders";
 
-export const BlogSchema = z.object({
-  slug: z.string(),
-  title: z.string(),
-  summary: z.string(),
-  createdAt: z.coerce.date(),
-  category: z.string(),
-  bannerPath: z.string().optional(),
-  bannerThumbnailPath: z.string().optional(),
-  bannerAlt: z.string().optional(),
-  projectUrl: z.string().optional(),
-  brandName: z.string().optional(),
-});
+export const BlogSchema = (image: ImageFunction) =>
+  z.object({
+    title: z.string(),
+    summary: z.string(),
+    createdAt: z.coerce.date(),
+    lastEditedAt: z.coerce.date().optional(),
+    category: z.string(),
+    bannerPath: image().optional(),
+    bannerThumbnailPath: z.string().optional(),
+    bannerAlt: z.string().optional(),
+    projectUrl: z.string().optional(),
+    clientText: z.string().optional(),
+  });
 
 const blog = defineCollection({
   loader: glob({
-    pattern: "**/blog/**/*.md",
-    base: "./src/pages/",
+    pattern: "**/*.mdx",
+    base: "./src/content/blog/",
   }),
-  schema: BlogSchema,
+  schema: ({ image }) => BlogSchema(image),
 });
 
 export const collections = { blog };

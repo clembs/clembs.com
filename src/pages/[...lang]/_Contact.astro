@@ -7,13 +7,9 @@ import Resume from "@assets/icons/resume.svg";
 import Email from "@assets/icons/email.svg";
 import Twitter from "@assets/icons/twitter.svg";
 import Social, { type SocialProps } from "@components/Social.astro";
-import {
-  getLangFromUrl,
-  useTranslatedPaths,
-  useTranslations,
-} from "@i18n/utils";
+import { getLocaleFromUrl, useTranslatedPaths, useTranslations } from "@i18n";
 
-const lang = getLangFromUrl(Astro.url);
+const lang = getLocaleFromUrl(Astro.url);
 const t = useTranslations(lang);
 const translatePath = useTranslatedPaths(lang);
 

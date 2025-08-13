@@ -1,21 +1,21 @@
-import { defaultLang, ui } from "./ui";
+import { defaultLocale, type Locale, localeCodes, ui } from ".";
 
-export function getLangFromUrl(url: URL) {
+export function getLocaleFromUrl(url: URL): Locale {
   const [, lang] = url.pathname.split("/");
-  if (lang in ui) return lang as keyof typeof ui;
-  return defaultLang;
+  if (lang in ui) return lang as Locale;
+  return defaultLocale;
 }
 
-export function useTranslations(lang: keyof typeof ui) {
+export function useTranslations(locale: Locale) {
   return function t(
-    key: keyof (typeof ui)[typeof defaultLang] | (string & {})
+    key: keyof (typeof ui)[typeof defaultLocale] | (string & {})
   ) {
     // @ts-ignore
-    return ui?.[lang]?.[key] ?? ui?.[defaultLang]?.[key] ?? "";
+    return ui?.[locale]?.[key] ?? ui?.[defaultLocale]?.[key] ?? "";
   };
 }
 
-export function useTranslatedPaths(lang: keyof typeof ui) {
+export function useTranslatedPaths(lang: Locale) {
   return function translatePath(path: string, l: string = lang) {
     const [, pathLang, ...restPath] = path.split("/");
 
@@ -29,4 +29,8 @@ export function useTranslatedPaths(lang: keyof typeof ui) {
 
 export function removeTrailingSlash(string: string) {
   return string.replace(/(?:\/+(\?))/, "$1").replace(/\/+$/, "");
+}
+
+export function generateLangStaticPaths() {
+  return localeCodes.map((l) => ({ params: { lang: l } }));
 }

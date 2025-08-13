@@ -1,7 +1,7 @@
 ---
-import { getLangFromUrl, useTranslations } from "@i18n/utils";
+import { getLocaleFromUrl, useTranslations } from "@i18n";
 
-const lang = getLangFromUrl(Astro.url);
+const lang = getLocaleFromUrl(Astro.url);
 const t = useTranslations(lang);
 ---
 
