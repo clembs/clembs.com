@@ -80,7 +80,7 @@ const lang = getLocaleFromUrl(Astro.url);
       frontmatter.bannerPath ? (
         <Image
           src={frontmatter.bannerPath}
-          alt={frontmatter.bannerAlt}
+          alt={frontmatter.bannerAlt || ""}
           style={`background-image: url(${frontmatter.bannerThumbnailPath});`}
         />
       ) : (
