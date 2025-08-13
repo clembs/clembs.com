@@ -10,7 +10,8 @@ main {
     margin-bottom: 0.8em;
   }
 
-  p {
+  p,
+  li {
     font-size: 1.125rem;
     line-height: 1.75;
     text-align: justify;
@@ -113,11 +114,28 @@ main {
   }
 
   img,
-  figure,
-  video,
-  svg {
+  video {
     margin: 1em 0;
     max-height: 70vh;
     width: auto;
+  }
+
+  figure {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 3em 0;
+
+    img {
+      max-height: 50vh;
+    }
+
+    p {
+      margin: 0;
+      text-align: center;
+      font-style: italic;
+      font-size: 1em;
+      color: var(--color-600);
+    }
   }
 }
