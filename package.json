@@ -3,6 +3,7 @@
   "type": "module",
   "version": "4.0.0",
   "scripts": {
+    "start": "node ./dist/server/entry.mjs",
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
