@@ -2,15 +2,14 @@
 import External from "@assets/icons/external.svg";
 import Share from "@assets/icons/share.svg";
 import Button from "@components/Button.astro";
-import type { z } from "astro:content";
-import type { BlogSchema } from "src/content.config";
 import "../styles/blog.scss";
 import Layout from "./Layout.astro";
 import { Image } from "astro:assets";
 import { getLocaleFromUrl } from "@i18n";
+import type { BlogData } from "src/content.config";
 
 type Props = {
-  frontmatter: z.infer<ReturnType<typeof BlogSchema>>;
+  frontmatter: BlogData;
 };
 
 const { frontmatter } = Astro.props;
@@ -23,7 +22,11 @@ const lastEditedAt = frontmatter.lastEditedAt
 const lang = getLocaleFromUrl(Astro.url);
 ---
 
-<Layout title={frontmatter.title} description={frontmatter.summary}>
+<Layout
+  title={frontmatter.title}
+  description={frontmatter.summary}
+  image={frontmatter.bannerPath}
+>
   <div id="summary-header">
     <div class="text">
       <h1>{frontmatter.title}</h1>
