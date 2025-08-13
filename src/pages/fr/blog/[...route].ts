@@ -1,3 +1,5 @@
+export const prerender = false;
+
 import { useTranslatedPaths } from "@i18n/utils";
 import type { APIRoute } from "astro";
 
