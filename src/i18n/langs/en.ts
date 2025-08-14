@@ -26,6 +26,10 @@ export default {
   "personal-project": "Personal project",
   tba: "TBA",
   project_view: "View {project}",
+  "blog.share_article": "Share article",
+  "blog.view_project": "View project",
+  "blog.warning_unlocalized":
+    "You're reading the original version of this post as it was not localized in English.",
   "projects.uniten.title": "UNITEN",
   "projects.uniten.description":
     "App for tennis players to find partners. Crafting new features and redesigning",

@@ -5,7 +5,7 @@ import Button from "@components/Button.astro";
 import "../styles/blog.scss";
 import Layout from "./Layout.astro";
 import { Image } from "astro:assets";
-import { getLocaleFromUrl } from "@i18n";
+import { getLocaleFromUrl, useTranslations } from "@i18n";
 import type { BlogData } from "src/content.config";
 
 type Props = {
@@ -20,6 +20,7 @@ const lastEditedAt = frontmatter.lastEditedAt
   : undefined;
 
 const lang = getLocaleFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 
 <Layout
@@ -65,7 +66,7 @@ const lang = getLocaleFromUrl(Astro.url);
           frontmatter.projectUrl ? (
             <Button href={frontmatter.projectUrl}>
               <External />
-              View project
+              {t("blog.view_project")}
             </Button>
           ) : (
             ""
@@ -74,7 +75,7 @@ const lang = getLocaleFromUrl(Astro.url);
 
         <Button id="share-sheet" variant="secondary">
           <Share />
-          Share article
+          {t("blog.share_article")}
         </Button>
       </div>
     </div>
