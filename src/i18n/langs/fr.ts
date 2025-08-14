@@ -31,6 +31,7 @@ export const fr: typeof en = {
   project_view: "Voir {project}",
   "blog.share_article": "Partager",
   "blog.view_project": "Voir le projet",
+  "blog.edited_on": "Édité le",
   "blog.warning_unlocalized":
     "Vous lisez l'article dans sa version originale car il n'a pas été traduit en français.",
   "projects.uniten.title": "UNITEN",

@@ -46,7 +46,7 @@ const t = useTranslations(lang);
         {
           lastEditedAt ? (
             <span class="edited">
-              • Edited on
+              • {t("blog.edited_on")}
               <time datetime={lastEditedAt.toDateString()}>
                 {lastEditedAt.toLocaleString(lang, {
                   month: "long",

@@ -28,6 +28,7 @@ export default {
   project_view: "View {project}",
   "blog.share_article": "Share article",
   "blog.view_project": "View project",
+  "blog.edited_on": "Edited on",
   "blog.warning_unlocalized":
     "You're reading the original version of this post as it was not localized in English.",
   "projects.uniten.title": "UNITEN",
