@@ -98,16 +98,15 @@ const translatePaths = useTranslatedPaths(lang);
     }
 
     <!-- language alternates -->
-    <link
-      rel="alternate"
-      hreflang="en-us"
-      href={translatePaths(Astro.url.pathname, "en")}
-    />
-    <link
-      rel="alternate"
-      hreflang="fr-fr"
-      href={translatePaths(Astro.url.pathname, "fr")}
-    />
+    {
+      ["en-us", "fr-fr"].map((l) => (
+        <link
+          rel="alternate"
+          hreflang={l}
+          href={`${Astro.url.origin}/${translatePaths(Astro.url.pathname, l.split("-")[0])}`}
+        />
+      ))
+    }
   </head>
 
   <body>
