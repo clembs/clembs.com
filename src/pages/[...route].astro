@@ -8,6 +8,14 @@ import {
   localeCodes,
   defaultLocale,
 } from "@i18n";
+import { handleRedirect } from "../redirects";
+
+// check for redirections first
+const redirectedUrl = handleRedirect(Astro.url);
+
+if (redirectedUrl) {
+  return Astro.redirect(redirectedUrl);
+}
 
 const [_, langParam] = Astro.url.pathname.split("/");
 
