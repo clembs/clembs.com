@@ -34,7 +34,9 @@ const uniquePostsWithLang = posts
       })
       .map((p) => getPostLang(p.id));
 
-    const userLangPost = posts.find((p) => p.id === `${lang}/${slug}`);
+    const userLangPost = posts.find(
+      (p) => getPostSlug(p.id) === slug && getPostLang(p.id) === lang
+    );
 
     // override data to use the user language's post data (if it exists)
     if (userLangPost) {
@@ -180,10 +182,14 @@ const categories = Array.from(
 
           img {
             max-width: 275px;
-            border-radius: 0.75rem;
-            border: 1px solid var(--color-700);
+            height: fit-content;
+            object-fit: cover;
             aspect-ratio: 16 / 9;
             background-size: cover;
+
+            border-radius: 0.75rem;
+            border: 1px solid var(--color-700);
+
             // ty https://stackoverflow.com/a/46109943/18195902
             text-indent: 100%;
             white-space: nowrap;

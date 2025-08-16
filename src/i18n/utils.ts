@@ -36,5 +36,5 @@ export function generateLangStaticPaths() {
 }
 
 export const getPostSlug = (postId: string) =>
-  postId.split("/").slice(1).join("/");
-export const getPostLang = (postId: string) => postId.split("/")[0];
+  postId.split("/").slice(0, -1).join("/");
+export const getPostLang = (postId: string) => postId.split("/").at(-1)!;
