@@ -45,7 +45,10 @@ const translatePaths = useTranslatedPaths(lang);
     }
 
     <!-- search engine indexing -->
-    {index && <meta name="”robots”" content="”follow,index”" />}
+    <meta
+      name="”robots”"
+      content={index ? "”follow,index”" : "”nofollow,noindex”"}
+    />
     <link rel="canonical" href={Astro.url.href} />
     <link rel="sitemap" href="/sitemap-index.xml" />
 
