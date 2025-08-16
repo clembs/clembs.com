@@ -4,14 +4,22 @@ import { defineConfig } from "astro/config";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 
+const baseUrl = "https://clembs.com";
+
 // https://astro.build/config
 export default defineConfig({
-  site: "https://clembs.com",
+  site: baseUrl,
   trailingSlash: "never",
 
   adapter: node({
     mode: "standalone",
   }),
 
-  integrations: [mdx(), sitemap()],
+  integrations: [
+    mdx(),
+    sitemap({
+      filter: (page) =>
+        !["/disabled-redirect"].find((u) => `${baseUrl}${u}` === page),
+    }),
+  ],
 });
