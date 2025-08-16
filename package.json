@@ -12,6 +12,7 @@
   "dependencies": {
     "@astrojs/mdx": "^4.3.3",
     "@astrojs/node": "^9.3.3",
+    "@astrojs/sitemap": "^3.5.0",
     "astro": "^5.11.0"
   },
   "devDependencies": {
