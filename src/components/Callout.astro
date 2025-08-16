@@ -11,15 +11,10 @@ const { title, variant = "note" } = Astro.props;
 
 <div class="callout" data-variant={variant}>
   {variant === "note" ? <Information /> : ""}
-  
+
   <div class="text">
-    {title && 
-    <p class="title heading-3">
-  
-      {title}
-    </p>
-    }
-  
+    {title && <p class="title heading-3">{title}</p>}
+
     <slot />
   </div>
 </div>
@@ -27,23 +22,19 @@ const { title, variant = "note" } = Astro.props;
 <style lang="scss">
   .callout {
     display: flex;
-    gap: 1.5rem;
+    gap: 1rem;
     background-color: var(--color-100);
     color: var(--color-800);
     margin: 2rem 0;
-    padding: 1.5rem;
-    padding-bottom: calc(1.5rem - 3px);
+    padding: 1rem;
     border-radius: 0.5rem;
 
     :global(svg) {
       width: 1.5rem;
       height: 1.5rem;
-      
     }
 
     .text {
-      transform: translateY(-3px);
-     
       :global(> *:first-child) {
         margin-top: 0;
       }
@@ -54,6 +45,5 @@ const { title, variant = "note" } = Astro.props;
 
     &[data-variant="note"] {
     }
-
   }
 </style>
