@@ -42,7 +42,7 @@ const targets = [
   });
 </script>
 
-<header>
+<header transition:name="navbar">
   <a
     class="logo"
     href={translatePaths("/")}
@@ -97,8 +97,6 @@ const targets = [
     padding: 0.5rem 1rem 0.5rem 0.5rem;
     max-width: 800px;
     width: calc(100% - 1.5rem);
-
-    // view-transition-name: navbar;
   }
 
   .logo {
