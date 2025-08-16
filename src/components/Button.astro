@@ -1,20 +1,36 @@
 ---
-type Props = {
-  href?: string;
+import type { HTMLAttributes } from "astro/types";
+
+type CommonProps = {
   id?: string;
   variant?: "primary" | "secondary";
 };
 
-const { href, id, variant = "primary" } = Astro.props;
+type Props =
+  | (HTMLAttributes<"a"> &
+      CommonProps & {
+        href: string;
+      })
+  | (HTMLAttributes<"button"> & CommonProps);
+
+const { variant = "primary", ...restProps } = Astro.props;
 ---
 
 {
-  href ? (
-    <a class="clickable" {href} {id} data-variant={variant}>
+  "href" in restProps ? (
+    <a
+      class:list={["clickable", restProps.class]}
+      data-variant={variant}
+      {...restProps}
+    >
       <slot />
     </a>
   ) : (
-    <button class="clickable" {id} data-variant={variant}>
+    <button
+      class:list={["clickable", restProps.class]}
+      data-variant={variant}
+      {...restProps}
+    >
       <slot />
     </button>
   )
@@ -63,6 +79,10 @@ const { href, id, variant = "primary" } = Astro.props;
       :global(svg) {
         height: 1.5rem;
         width: 1.5rem;
+      }
+
+      &:has(:only-child) {
+        padding-right: 0.75rem;
       }
     }
   }
