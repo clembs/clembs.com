@@ -41,7 +41,7 @@ const redirectList = [
   { source: "/blog/design", destination: "/blog#work" },
   { source: "/branding", destination: "/blog#work" },
   { source: "/software", destination: "/blog#work" },
-  { source: "/contact", destination: "#contact" },
+  { source: "/contact", destination: "/#contact" },
   { source: "/stream", destination: "/disabled-redirect#twitch" },
 
   // very old projects
