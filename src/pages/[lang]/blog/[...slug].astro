@@ -2,19 +2,20 @@
 import { render } from "astro:content";
 import { getCollection } from "astro:content";
 import Blog from "../../../layouts/Blog.astro";
-import { getLocaleFromUrl, localeCodes, useTranslations } from "@i18n";
+import {
+  getLocaleFromUrl,
+  getPostLang,
+  getPostSlug,
+  localeCodes,
+  useTranslations,
+} from "@i18n";
 import Callout from "@components/Callout.astro";
 
 // generate all possible slugs for both langs (if either is unavailable, fallback)
 export async function getStaticPaths() {
   const posts = await getCollection("blog");
 
-  const slugs = new Set(
-    posts.map((post) => {
-      const slug = post.id.split("/").slice(1).join("/");
-      return slug;
-    })
-  );
+  const slugs = new Set(posts.map((post) => getPostSlug(post.id)));
 
   return Array.from(slugs).flatMap((slug) => {
     return localeCodes.map((lang) => ({
@@ -30,18 +31,12 @@ const posts = await getCollection("blog");
 
 // we do the posts.find thing twice to avoid finding the wrong post
 // and to denote if the post is localized or not
-const localizedPost = posts.find((post) => {
-  const postLang = post.id.split("/")[0];
-  const postSlug = post.id.split("/").slice(1).join("/");
-
-  return postLang === lang && postSlug === slug;
-});
+const localizedPost = posts.find(
+  (post) => getPostLang(post.id) === lang && getPostSlug(post.id) === slug
+);
 
 // force it to exist since the path was created
-const fallbackPost = posts.find((post) => {
-  const postSlug = post.id.split("/").slice(1).join("/");
-  return postSlug === slug;
-})!;
+const fallbackPost = posts.find((post) => getPostSlug(post.id) === slug)!;
 
 const post = localizedPost || fallbackPost;
 const { Content } = await render(post);
@@ -49,7 +44,7 @@ const { Content } = await render(post);
 const t = useTranslations(lang);
 ---
 
-<Blog frontmatter={post.data}>
+<Blog {post}>
   {!localizedPost && <Callout>{t("blog.warning_unlocalized")}</Callout>}
 
   <Content />

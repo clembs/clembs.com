@@ -26,11 +26,17 @@ export default {
   "personal-project": "Personal project",
   tba: "TBA",
   project_view: "View {project}",
+  "langs.en": "English",
+  "langs.fr": "French",
+  "blog.available_in": "Available in",
+  "blog.available_in_and": "and",
   "blog.share_article": "Share article",
   "blog.view_project": "View project",
   "blog.edited_on": "Edited on",
   "blog.warning_unlocalized":
     "You're reading the original version of this post as it was not localized in English.",
+  "blog.category.case-studies": "Projects, work and case studies",
+  "blog.category.discovelist": "Discovelist",
   "projects.uniten.title": "UNITEN",
   "projects.uniten.description":
     "App for tennis players to find partners. Crafting new features and redesigning",

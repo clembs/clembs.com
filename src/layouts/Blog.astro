@@ -5,32 +5,34 @@ import Button from "@components/Button.astro";
 import "../styles/blog.scss";
 import Layout from "./Layout.astro";
 import { Image } from "astro:assets";
-import { getLocaleFromUrl, useTranslations } from "@i18n";
-import type { BlogData } from "src/content.config";
+import { getLocaleFromUrl, getPostSlug, useTranslations } from "@i18n";
+import type { CollectionEntry } from "astro:content";
 
 type Props = {
-  frontmatter: BlogData;
+  post: CollectionEntry<"blog">;
 };
 
-const { frontmatter } = Astro.props;
+const { post } = Astro.props;
 
-const createdAt = new Date(frontmatter.createdAt);
-const lastEditedAt = frontmatter.lastEditedAt
-  ? new Date(frontmatter.lastEditedAt)
+const createdAt = new Date(post.data.createdAt);
+const lastEditedAt = post.data.lastEditedAt
+  ? new Date(post.data.lastEditedAt)
   : undefined;
+
+const slug = getPostSlug(post.id);
 
 const lang = getLocaleFromUrl(Astro.url);
 const t = useTranslations(lang);
 ---
 
 <Layout
-  title={frontmatter.title}
-  description={frontmatter.summary}
-  image={frontmatter.bannerPath}
+  title={post.data.title}
+  description={post.data.summary}
+  image={post.data.bannerPath}
 >
   <div id="summary-header">
     <div class="text">
-      <h1>{frontmatter.title}</h1>
+      <h1 transition:name={slug}>{post.data.title}</h1>
 
       <p>
         <time datetime={createdAt.toDateString()}>
@@ -42,7 +44,7 @@ const t = useTranslations(lang);
             })
           }
         </time>
-        {frontmatter.clientText ? `• ${frontmatter.clientText}` : ""}
+        {post.data.clientText ? `• ${post.data.clientText}` : ""}
         {
           lastEditedAt ? (
             <span class="edited">
@@ -63,8 +65,8 @@ const t = useTranslations(lang);
 
       <div class="buttons">
         {
-          frontmatter.projectUrl ? (
-            <Button href={frontmatter.projectUrl}>
+          post.data.projectUrl ? (
+            <Button href={post.data.projectUrl}>
               <External />
               {t("blog.view_project")}
             </Button>
@@ -81,11 +83,13 @@ const t = useTranslations(lang);
     </div>
 
     {
-      frontmatter.bannerPath ? (
+      post.data.bannerPath ? (
         <Image
-          src={frontmatter.bannerPath}
-          alt={frontmatter.bannerAlt || ""}
-          style={`background-image: url(${frontmatter.bannerThumbnailPath});`}
+          src={post.data.bannerPath}
+          alt={post.data.bannerAlt || ""}
+          style={`background-image: url(${post.data.bannerThumbnailPath});`}
+          loading="eager"
+          transition:name={`${slug}-img`}
         />
       ) : (
         ""

@@ -29,11 +29,17 @@ export const fr: typeof en = {
   "personal-project": "Projet personnel",
   tba: "En cours de développement",
   project_view: "Voir {project}",
+  "langs.en": "Anglais",
+  "langs.fr": "Français",
+  "blog.available_in": "Disponible en",
+  "blog.available_in_and": "et en",
   "blog.share_article": "Partager",
   "blog.view_project": "Voir le projet",
   "blog.edited_on": "Édité le",
   "blog.warning_unlocalized":
     "Vous lisez l'article dans sa version originale car il n'a pas été traduit en français.",
+  "blog.category.case-studies": "Projets et études de cas",
+  "blog.category.discovelist": "Discovelist",
   "projects.uniten.title": "UNITEN",
   "projects.uniten.description":
     "App mobile permettant aux joueurs de tennis de trouver des partenaires, réalisée en 8 semaines avec 2 stagiaires",

@@ -34,3 +34,7 @@ export function removeTrailingSlash(string: string) {
 export function generateLangStaticPaths() {
   return localeCodes.map((l) => ({ params: { lang: l } }));
 }
+
+export const getPostSlug = (postId: string) =>
+  postId.split("/").slice(1).join("/");
+export const getPostLang = (postId: string) => postId.split("/")[0];
