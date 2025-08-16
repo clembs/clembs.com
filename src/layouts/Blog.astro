@@ -77,7 +77,10 @@ const t = useTranslations(lang);
 
         <Button id="share-sheet" variant="secondary">
           <Share />
-          {t("blog.share_article")}
+
+          <span class="label">
+            {t("blog.share_article")}
+          </span>
         </Button>
       </div>
     </div>
@@ -131,6 +134,14 @@ const t = useTranslations(lang);
     .buttons {
       display: flex;
       gap: 0.5rem;
+
+      &:global(:has([data-variant="primary"])) {
+        .label {
+          @media (max-width: 800px) {
+            display: none;
+          }
+        }
+      }
     }
 
     img {
@@ -138,6 +149,12 @@ const t = useTranslations(lang);
       border: 2px solid var(--color-850);
       width: 100%;
       max-width: calc(75ch + 100px);
+      aspect-ratio: 16 / 9;
+      background-size: cover;
+      // ty https://stackoverflow.com/a/46109943/18195902
+      text-indent: 100%;
+      white-space: nowrap;
+      overflow: hidden;
     }
   }
 
