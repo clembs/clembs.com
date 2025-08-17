@@ -4,6 +4,17 @@
  */
 
 const redirectList = [
+  // resume
+  {
+    source: "/fr/cv",
+    destination: "https://c.clembs.com/files/df3f2d03b1c94ea988.pdf",
+  },
+  {
+    source: "/en/cv",
+    // TODO: update to the english one ASAP
+    destination: "https://c.clembs.com/files/ba44724a29aee606b7.pdf",
+  },
+
   // shortlinks to creation platforms
   { source: "/kofi", destination: "https://ko-fi.com/clembs" },
   { source: /\/gh\/(.*)/, destination: "https://github.com/Clembs/$1" },
@@ -50,7 +61,10 @@ const redirectList = [
     destination: "https://sites.google.com/view/grazalink",
   },
   { source: "/flapps", destination: "https://sites.google.com/view/flapps" },
-  { source: "/unibros/latest", destination: "/unibros/unibros-demo3.zip" },
+  {
+    source: "/unibros/latest",
+    destination: "https://c.clembs.com/files/unibros-demo3.zip",
+  },
 
   // things i privated/deleted/archived for good
   { source: "/discord", destination: "/disabled-redirect#discord" },
