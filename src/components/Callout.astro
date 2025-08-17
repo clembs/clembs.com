@@ -1,16 +1,28 @@
 ---
 import Information from "@assets/icons/information.svg";
+import Warning from "@assets/icons/warning.svg";
 
 type Props = {
   title?: string;
-  variant?: "note";
+  variant?: "note" | "warning";
 };
 
 const { title, variant = "note" } = Astro.props;
+
+let Icon: (_props: astroHTML.JSX.SVGAttributes) => any;
+
+switch (variant) {
+  case "note":
+    Icon = Information;
+    break;
+  case "warning":
+    Icon = Warning;
+    break;
+}
 ---
 
 <div class="callout" data-variant={variant}>
-  {variant === "note" ? <Information /> : ""}
+  <Icon />
 
   <div class="text">
     {title && <p class="title heading-3">{title}</p>}
@@ -21,6 +33,15 @@ const { title, variant = "note" } = Astro.props;
 
 <style lang="scss">
   .callout {
+    &[data-variant="note"] {
+    }
+    &[data-variant="warning"] {
+      --base-hue: 30;
+    }
+
+    --color-100: oklch(0.9 0.07 calc(var(--base-hue) + 8));
+    --color-800: oklch(0.2 0.1 calc(var(--base-hue) + 9));
+
     display: flex;
     gap: 1rem;
     background-color: var(--color-100);
@@ -41,9 +62,6 @@ const { title, variant = "note" } = Astro.props;
       :global(> *:last-child) {
         margin-bottom: 0;
       }
-    }
-
-    &[data-variant="note"] {
     }
   }
 </style>
