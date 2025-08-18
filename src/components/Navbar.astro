@@ -25,19 +25,31 @@ const targets = [
 
 <script>
   // progressive enhancements via JS: click outside && escape
-  const languageInput = document.querySelector(
-    "#language-input"
+  const checkbox = document.getElementById(
+    "language-input"
   ) as HTMLInputElement;
+  const menu = document.getElementById("language-menu");
 
   document.addEventListener("click", (ev) => {
-    if (ev.target != languageInput) {
-      languageInput.checked = false;
+    if (
+      !checkbox ||
+      // avoid duplicate click triggers
+      // (since a click on <label> triggers a click on <input>)
+      (ev.target as HTMLElement).closest("#language-menu-trigger")
+    )
+      return;
+
+    // if the user clicks outside the checkbox (don't interfere with default behavior)
+    // and outside the menu, and the checkbox is checked, uncheck it
+    if (ev.target !== checkbox && ev.target !== menu && checkbox.checked) {
+      checkbox.checked = false;
     }
   });
 
   document.addEventListener("keydown", (ev) => {
     if (ev.key === "Escape") {
-      languageInput.checked = false;
+      checkbox.checked = false;
+      checkbox.focus();
     }
   });
 </script>
@@ -68,19 +80,21 @@ const targets = [
     </nav>
     <input type="checkbox" id="language-input" />
 
-    <label
-      for="language-input"
-      class="target"
-      aria-label="Change website language"
-      aria-controls="language-menu"
-    >
-      <Globe />
-
+    <div id="language-input-wrapper">
+      <label
+        id="language-menu-trigger"
+        for="language-input"
+        class="target"
+        aria-label="Change website language"
+        aria-controls="language-menu"
+      >
+        <Globe />
+      </label>
       <div id="language-menu">
         <a href={translatePaths(Astro.url.pathname, "en")}> english </a>
         <a href={translatePaths(Astro.url.pathname, "fr")}> français </a>
       </div>
-    </label>
+    </div>
   </div>
 </header>
 
@@ -89,6 +103,10 @@ const targets = [
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    // fix for chromium to have the language menu on top of content
+    position: relative;
+    z-index: 99;
 
     background-color: var(--color-white);
     border: 1px solid var(--color-500);
@@ -146,16 +164,6 @@ const targets = [
         background-color: var(--color-40);
       }
     }
-
-    &:is(label) {
-      position: relative;
-      padding: 0.5rem 0.75rem;
-
-      :global(svg) {
-        width: 1.25rem;
-        height: 1.25rem;
-      }
-    }
   }
 
   input[type="checkbox"] {
@@ -165,19 +173,41 @@ const targets = [
     top: -1px;
     right: -1px;
 
-    &:focus-visible + label {
+    &:focus-visible + #language-input-wrapper label {
       background-color: var(--color-40);
       box-shadow:
         0 0 0 2px var(--color-white),
         0 0 0 4px var(--color-500);
     }
 
-    &:checked + label {
+    &:checked + #language-input-wrapper label {
       background-color: var(--color-40);
 
-      #language-menu {
+      & + #language-menu {
         display: flex;
+        opacity: 1;
+        transform: translateY(44px);
       }
+    }
+
+    @starting-style {
+      &:checked + #language-input-wrapper label + #language-menu {
+        opacity: 0;
+        transform: translateY(calc(-1rem + 44px)) scale(0.9);
+      }
+    }
+  }
+
+  #language-input-wrapper {
+    position: relative;
+  }
+
+  #language-menu-trigger {
+    padding: 0.75rem;
+
+    :global(svg) {
+      width: 1.25rem;
+      height: 1.25rem;
     }
   }
 
@@ -188,12 +218,22 @@ const targets = [
     border: 1px solid var(--color-400);
     padding: 0.5rem;
     border-radius: 1.5rem;
+    cursor: default;
 
     position: absolute;
     top: 0;
     right: 0;
-    transform: translateY(44px);
-    z-index: 9;
+
+    opacity: 0;
+    transform: translateY(calc(-1rem + 44px)) scale(0.95);
+    transform-origin: top right;
+
+    transition:
+      opacity,
+      transform,
+      overlay allow-discrete,
+      display allow-discrete;
+    transition-duration: 250ms;
 
     a {
       white-space: nowrap;
