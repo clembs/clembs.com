@@ -5,6 +5,8 @@ export const fr: typeof en = {
   about: "à propos",
   now: "maintenant",
   blog: "blog",
+  copy_link: "Copier le lien",
+  other: "Autre",
   footer_legal_blurb: "Tous droits réservés.",
   "intro.tronche.alt": "Ma tête ulta professionnelle et pleine de joie",
   "intro.eyebrow": "Salut, c'est Clément. Bienvenue sur mon site !",
@@ -34,6 +36,8 @@ export const fr: typeof en = {
   "blog.available_in": "Disponible en",
   "blog.available_in_and": "et en",
   "blog.share_article": "Partager",
+  "blog.share_article_modal_title": "Partager cet article",
+  "blog.share_article_text": "Je lis {title} de Clément Voisin :",
   "blog.view_project": "Voir le projet",
   "blog.edited_on": "Édité le",
   "blog.warning_unlocalized":

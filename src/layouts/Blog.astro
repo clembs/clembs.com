@@ -7,6 +7,7 @@ import Layout from "./Layout.astro";
 import { Image } from "astro:assets";
 import { getLocaleFromUrl, getPostSlug, useTranslations } from "@i18n";
 import type { CollectionEntry } from "astro:content";
+import ShareDialog from "@components/ShareDialog.astro";
 
 type Props = {
   post: CollectionEntry<"blog">;
@@ -25,11 +26,27 @@ const lang = getLocaleFromUrl(Astro.url);
 const t = useTranslations(lang);
 ---
 
+<script>
+  const shareDialogButton = document.getElementById("share-dialog-button");
+  // if invoker API exists, no need to execute javascript
+  if (shareDialogButton && !("command" in shareDialogButton)) {
+    const shareDialog = document.getElementById(
+      "share-dialog"
+    ) as HTMLDialogElement;
+
+    shareDialogButton?.addEventListener("click", () => {
+      shareDialog.showModal();
+    });
+  }
+</script>
+
 <Layout
   title={post.data.title}
   description={post.data.summary}
   image={post.data.bannerPath}
 >
+  <ShareDialog post={post.data} />
+
   <div id="summary-header">
     <div class="text">
       <h1 transition:name={slug}>{post.data.title}</h1>
@@ -75,7 +92,13 @@ const t = useTranslations(lang);
           )
         }
 
-        <Button id="share-sheet" variant="secondary">
+        <!-- @ts-ignore using tech thats too advanced for the language server -->
+        <Button
+          id="share-dialog-button"
+          commandfor="share-dialog"
+          command="show-modal"
+          variant="secondary"
+        >
           <Share />
 
           <span class="label">

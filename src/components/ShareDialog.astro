@@ -1,0 +1,293 @@
+---
+import { getLocaleFromUrl, useTranslations } from "@i18n";
+import { Image } from "astro:assets";
+import type { BlogData } from "src/content.config";
+import Clembs from "@assets/icons/clembs.svg";
+import Bluesky from "@assets/icons/bluesky.svg";
+import Twitter from "@assets/icons/twitter.svg";
+import Email from "@assets/icons/email.svg";
+import Copy from "@assets/icons/copy.svg";
+import Share from "@assets/icons/share.svg";
+
+type Props = {
+  post: BlogData;
+};
+
+const { post } = Astro.props;
+
+const lang = getLocaleFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const text = t(`blog.share_article_text`).replace("{title}", post.title);
+const url = Astro.url.pathname;
+---
+
+<script>
+  import Check from "@assets/icons/check.svg?raw";
+  import Copy from "@assets/icons/copy.svg?raw";
+
+  const copyButton = document.getElementById("copy-button");
+  const shareButton = document.getElementById("share-button");
+
+  copyButton?.addEventListener("click", () => {
+    let icon = copyButton.querySelector(".icon")!;
+    // let text = copyButton.querySelector(".small-text")!;
+
+    icon.innerHTML = Check;
+
+    setTimeout(() => {
+      icon.innerHTML = Copy;
+    }, 1500);
+
+    navigator.clipboard.writeText(window.location.href);
+  });
+
+  const postTitle = document.getElementById("post-title")!.innerText;
+
+  const shareData = {
+    title: postTitle,
+    url: window.location.href,
+  };
+
+  if (shareButton && "share" in navigator && navigator.canShare(shareData)) {
+    shareButton.setAttribute("aria-hidden", "false");
+    shareButton.setAttribute("data-hidden", "false");
+    shareButton.addEventListener("click", () => {
+      navigator.share(shareData);
+    });
+  }
+</script>
+
+<dialog id="share-dialog">
+  <span class="heading-1">{t("blog.share_article_modal_title")}</span>
+
+  <div id="share-preview-card">
+    {
+      post.bannerPath && (
+        <Image src={post.bannerPath} alt={post.bannerAlt || ""} />
+      )
+    }
+
+    <div id="share-preview-text">
+      <div class="site-title">
+        <Clembs /> clembs.com
+      </div>
+
+      <div id="post-title" class="clickable">{post.title}</div>
+
+      <p class="small-text">
+        {post.summary}
+      </p>
+    </div>
+  </div>
+
+  <div class="buttons">
+    <a
+      href={`https://bsky.app/intent/compose?text=${text} ${url}`}
+      class="button"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <div class="icon">
+        <Bluesky />
+      </div>
+
+      <span class="small-text"> Bluesky </span>
+    </a>
+
+    <a
+      href={`https://twitter.com/intent/tweet?text=${text}&url=${url}&via=clembsv`}
+      class="button"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <div class="icon">
+        <Twitter />
+      </div>
+      <span class="small-text"> Twitter </span>
+    </a>
+
+    <a
+      href={`mailto:?body=${text} ${url}`}
+      class="button"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <div class="icon">
+        <Email />
+      </div>
+      <span class="small-text"> Email </span>
+    </a>
+
+    <button id="copy-button" class="button">
+      <div class="icon">
+        <Copy />
+      </div>
+      <span class="small-text"> {t("copy_link")} </span>
+    </button>
+
+    <button
+      id="share-button"
+      class="button"
+      data-hidden="true"
+      aria-hidden="true"
+    >
+      <div class="icon">
+        <Share />
+      </div>
+      <span class="small-text"> {t("other")} </span>
+    </button>
+  </div>
+</dialog>
+
+<style lang="scss">
+  #share-dialog {
+    flex-direction: column;
+    gap: 2rem;
+
+    margin: auto;
+    padding: 1.25rem 1.5rem;
+    max-width: 500px;
+    width: calc(100% - 1rem);
+
+    background-color: var(--color-white);
+    border-radius: 1.5rem;
+    border: 1px solid var(--color-700);
+    box-shadow: 0 2px 0 0 var(--color-700);
+
+    opacity: 0;
+    transform: translateY(1em);
+
+    transition:
+      opacity,
+      transform,
+      display allow-discrete,
+      overlay allow-discrete;
+    transition-duration: 500ms;
+
+    &[open] {
+      display: flex;
+      opacity: 1;
+      transform: scaleX(1);
+    }
+
+    &::backdrop {
+      opacity: 0;
+      background-color: color-mix(in srgb, var(--color-800) 50%, transparent);
+
+      transition:
+        opacity,
+        display allow-discrete,
+        overlay allow-discrete;
+      transition-duration: 250ms;
+    }
+
+    &[open]::backdrop {
+      opacity: 1;
+    }
+
+    @starting-style {
+      &[open] {
+        opacity: 0;
+        transform: translateY(-1em);
+      }
+
+      &[open]::backdrop {
+        opacity: 0;
+        background-color: transparent;
+      }
+    }
+
+    #share-preview-card {
+      display: flex;
+      flex-direction: column;
+
+      background: var(--color-40);
+      border-radius: 1rem;
+
+      #share-preview-text {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+
+        padding: 1rem;
+
+        .site-title {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+
+          font-size: 0.75rem;
+          font-weight: 600;
+          color: var(--color-600);
+          text-transform: uppercase;
+
+          :global(svg) {
+            height: 1.125rem;
+            width: 1.125rem;
+          }
+        }
+      }
+    }
+
+    .buttons {
+      display: flex;
+      gap: 2rem;
+      width: 100%;
+      justify-content: space-between;
+      margin: 0 -1.5rem;
+      padding: 0 1.5rem;
+      width: calc(100% + 3rem);
+
+      overflow-y: scroll;
+      overflow-y: hidden;
+      scrollbar-width: none;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+
+      .button {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem;
+        margin: -0.5rem;
+
+        appearance: none;
+        border: none;
+        background-color: transparent;
+        cursor: pointer;
+
+        flex-shrink: 0;
+        white-space: nowrap;
+
+        &[data-hidden="true"] {
+          display: none;
+        }
+
+        @media (hover: hover) {
+          &:hover {
+            .icon {
+              background-color: var(--color-600);
+            }
+          }
+        }
+
+        .icon {
+          width: fit-content;
+          background-color: var(--color-500);
+          color: var(--color-white);
+          padding: 1rem;
+          border-radius: 99px;
+
+          :global(svg) {
+            width: 1.5rem;
+            height: 1.5rem;
+          }
+        }
+      }
+    }
+  }
+</style>

@@ -3,6 +3,8 @@ export default {
   about: "about",
   now: "now",
   blog: "blog",
+  copy_link: "Copy link",
+  other: "Other",
   footer_legal_blurb: "All rights reserved.",
   "intro.tronche.alt": "My highly professional and whimsical face",
   "intro.eyebrow": "Hi, I'm Clément, welcome to my website!",
@@ -31,6 +33,8 @@ export default {
   "blog.available_in": "Available in",
   "blog.available_in_and": "and",
   "blog.share_article": "Share article",
+  "blog.share_article_modal_title": "Share this article",
+  "blog.share_article_text": "Read Clément Voisin's {title}:",
   "blog.view_project": "View project",
   "blog.edited_on": "Edited on",
   "blog.warning_unlocalized":
