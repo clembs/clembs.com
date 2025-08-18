@@ -47,7 +47,7 @@ const targets = [
   });
 
   document.addEventListener("keydown", (ev) => {
-    if (ev.key === "Escape") {
+    if (ev.key === "Escape" && checkbox.checked) {
       checkbox.checked = false;
       checkbox.focus();
     }
