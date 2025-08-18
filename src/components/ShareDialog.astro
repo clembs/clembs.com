@@ -151,9 +151,6 @@ const url = Astro.url.pathname;
 
 <style lang="scss">
   #share-dialog {
-    flex-direction: column;
-    gap: 2rem;
-
     margin: auto;
     padding: 1.25rem 1.5rem;
     max-width: 500px;
@@ -175,7 +172,6 @@ const url = Astro.url.pathname;
     transition-duration: 500ms;
 
     &[open] {
-      display: flex;
       opacity: 1;
       transform: scaleX(1);
     }
@@ -220,6 +216,8 @@ const url = Astro.url.pathname;
         cursor: pointer;
         border-radius: 99px;
         padding: 0.75rem;
+        // optically align the cross to the card
+        margin-right: -0.75rem;
 
         @media (hover: hover) {
           &:hover {
@@ -237,6 +235,9 @@ const url = Astro.url.pathname;
     #share-preview-card {
       display: flex;
       flex-direction: column;
+      overflow: hidden;
+      margin-top: 1.5rem;
+      margin-bottom: 1rem;
 
       background: var(--color-40);
       border-radius: 1rem;
@@ -263,12 +264,16 @@ const url = Astro.url.pathname;
             width: 1.125rem;
           }
         }
+
+        #post-title {
+          text-wrap: balance;
+        }
       }
     }
 
     .buttons {
       display: flex;
-      gap: 2rem;
+      gap: 0.5rem;
       width: 100%;
       justify-content: space-between;
       margin: 0 -1.5rem;
@@ -288,8 +293,6 @@ const url = Astro.url.pathname;
         flex-direction: column;
         align-items: center;
         gap: 0.5rem;
-        padding: 0.5rem;
-        margin: -0.5rem;
 
         appearance: none;
         border: none;
@@ -316,12 +319,19 @@ const url = Astro.url.pathname;
           background-color: var(--color-500);
           color: var(--color-white);
           padding: 1rem;
+          margin: 0 0.5rem;
           border-radius: 99px;
 
           :global(svg) {
             width: 1.5rem;
             height: 1.5rem;
           }
+        }
+
+        .small-text {
+          max-width: 4.5rem;
+          text-wrap: balance;
+          text-align: center;
         }
       }
     }
