@@ -3,6 +3,7 @@ import { getLocaleFromUrl, useTranslations } from "@i18n";
 import { Image } from "astro:assets";
 import type { BlogData } from "src/content.config";
 import Clembs from "@assets/icons/clembs.svg";
+import Close from "@assets/icons/close.svg";
 import Bluesky from "@assets/icons/bluesky.svg";
 import Twitter from "@assets/icons/twitter.svg";
 import Email from "@assets/icons/email.svg";
@@ -59,7 +60,15 @@ const url = Astro.url.pathname;
 </script>
 
 <dialog id="share-dialog">
-  <span class="heading-2">{t("blog.share_article_modal_title")}</span>
+  <div class="title">
+    <span class="heading-2">{t("blog.share_article_modal_title")}</span>
+
+    <form method="dialog">
+      <button>
+        <Close />
+      </button>
+    </form>
+  </div>
 
   <div id="share-preview-card">
     {
@@ -195,6 +204,33 @@ const url = Astro.url.pathname;
       &[open]::backdrop {
         opacity: 0;
         background-color: transparent;
+      }
+    }
+
+    .title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.25rem;
+
+      button {
+        appearance: none;
+        border: none;
+        background-color: transparent;
+        cursor: pointer;
+        border-radius: 99px;
+        padding: 0.75rem;
+
+        @media (hover: hover) {
+          &:hover {
+            background-color: var(--color-40);
+          }
+        }
+
+        :global(svg) {
+          width: 1.25rem;
+          height: 1.25rem;
+        }
       }
     }
 
