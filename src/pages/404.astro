@@ -1,0 +1,143 @@
+---
+import Button from "@components/Button.astro";
+import { getLocaleFromUrl, useTranslations, useTranslatedPaths } from "@i18n";
+import Layout from "src/layouts/Layout.astro";
+import rehypeStringify from "rehype-stringify";
+import remarkParse from "remark-parse";
+import remarkRehype from "remark-rehype";
+import { unified } from "unified";
+import { visit } from "unist-util-visit";
+
+const lang = getLocaleFromUrl(Astro.url);
+const t = useTranslations(lang);
+const translatePath = useTranslatedPaths(lang);
+
+// to cheaply process the bit of markdown in 404.description lol
+const mdProcessor = unified()
+  .use(remarkParse)
+  .use(
+    // add a link class to... links
+    () => (tree) =>
+      visit(tree, (node) => {
+        if (node.type !== "link") return;
+        node.data = { hProperties: { className: "link" } };
+      })
+  )
+  .use(remarkRehype)
+  .use(rehypeStringify);
+---
+
+<script>
+  const text404 = document.getElementById("four-oh-four")!;
+
+  const letters = Array.from(text404.children).map((c) => {
+    const rect = c.getBoundingClientRect();
+
+    return {
+      el: c as HTMLDivElement,
+      left: rect.left - 32,
+      center: rect.left + rect.width / 2,
+      right: rect.left + rect.width + 32,
+      letter: c.innerHTML,
+    };
+  });
+
+  text404.addEventListener("mousemove", (ev) => {
+    for (const letter of letters) {
+      const distance = Math.abs(ev.clientX - letter.center);
+      const maxDistance = Math.max(
+        letter.right - letter.center,
+        letter.center - letter.left
+      );
+      const progress = 1 - Math.min(1, distance / maxDistance);
+
+      const weightValue = 100 + progress * (800 - 100);
+
+      letter.el.style.fontVariationSettings = `'wght' ${weightValue}`;
+    }
+  });
+
+  text404.addEventListener("mouseenter", (ev) => {
+    text404.setAttribute("data-animate", "false");
+  });
+  text404.addEventListener("mouseleave", (ev) => {
+    text404.setAttribute("data-animate", "true");
+  });
+</script>
+
+<Layout title="404" description={t("404.title")} index={false}>
+  <main>
+    <div id="four-oh-four" aria-label="404" data-animate="true">
+      <div id="first-4" style="--delay: 0ms">4</div>
+      <div id="zero" style="--delay: 150ms">0</div>
+      <div id="last-4" style="--delay: 300ms">4</div>
+    </div>
+
+    <h1>{t("404.title")}</h1>
+
+    <Fragment
+      set:html={mdProcessor.process(
+        t("404.description").replace("{email}", "mailto:clembs@clembs.com")
+      )}
+    />
+
+    <Button href={translatePath("/")}>
+      {t("404.back")}
+    </Button>
+  </main>
+</Layout>
+
+<style lang="scss">
+  main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+
+    max-width: 800px;
+    margin: 1rem auto;
+    padding: 1rem;
+
+    text-align: center;
+
+    flex-grow: 1;
+    justify-content: center;
+
+    :global(p) {
+      max-width: 55ch;
+      text-wrap: balance;
+    }
+  }
+
+  #four-oh-four {
+    display: flex;
+    font-size: 10rem;
+    font-style: italic;
+    line-height: 0.7;
+    padding: 0.5rem 2rem;
+
+    &[data-animate="true"] {
+      * {
+        animation: animate-weight 1.5s infinite forwards;
+        animation-delay: var(--delay);
+      }
+    }
+    &[data-animate="false"] {
+      * {
+        font-variation-settings: "wght" calc(var(--));
+      }
+    }
+  }
+
+  @keyframes animate-weight {
+    0% {
+      font-variation-settings: "wght" 100;
+    }
+    50% {
+      font-variation-settings: "wght" 700;
+    }
+    100% {
+      font-variation-settings: "wght" 100;
+    }
+  }
+</style>

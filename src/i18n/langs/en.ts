@@ -28,6 +28,10 @@ export default {
   "personal-project": "Personal project",
   tba: "TBA",
   project_view: "View {project}",
+  "404.title": "Couldn't find this page",
+  "404.description":
+    "Double-check the spelling of the URL. If you're sure that this page used to exist in the past, could you [email me]({email}) about it?",
+  "404.back": "Back to home",
   "langs.en": "English",
   "langs.fr": "French",
   "blog.available_in": "Available in",

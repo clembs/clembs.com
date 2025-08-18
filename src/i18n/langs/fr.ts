@@ -31,6 +31,10 @@ export const fr: typeof en = {
   "personal-project": "Projet personnel",
   tba: "En cours de développement",
   project_view: "Voir {project}",
+  "404.title": "Cette page est introuvable",
+  "404.description":
+    "Revérifiez l'orthographe de l'URL. Si vous êtes sûr(e) que cette page existait par le passé, pourriez-vous me l'indiquer [par email]({email}) ?",
+  "404.back": "Retour à l'accueil",
   "langs.en": "Anglais",
   "langs.fr": "Français",
   "blog.available_in": "Disponible en",
