@@ -219,6 +219,9 @@ const url = Astro.url.pathname;
         // optically align the cross to the card
         margin-right: -0.75rem;
 
+        &:focus-visible {
+          background-color: var(--color-40);
+        }
         @media (hover: hover) {
           &:hover {
             background-color: var(--color-40);
@@ -276,8 +279,8 @@ const url = Astro.url.pathname;
       gap: 0.5rem;
       width: 100%;
       justify-content: space-between;
-      margin: 0 -1.5rem;
-      padding: 0 1.5rem;
+      margin: -1rem -1.5rem;
+      padding: 1rem 1.5rem;
       width: calc(100% + 3rem);
 
       overflow-y: scroll;
@@ -296,6 +299,7 @@ const url = Astro.url.pathname;
 
         appearance: none;
         border: none;
+        border-radius: 0.5rem;
         background-color: transparent;
         cursor: pointer;
 
@@ -304,6 +308,12 @@ const url = Astro.url.pathname;
 
         &[data-hidden="true"] {
           display: none;
+        }
+
+        &:focus-visible {
+          .icon {
+            background-color: var(--color-600);
+          }
         }
 
         @media (hover: hover) {

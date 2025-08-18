@@ -168,6 +168,17 @@ const categories = Array.from(
           gap: 1rem;
           width: 100%;
 
+          &:focus-visible {
+            margin: -0.5rem;
+            padding: 0.5rem;
+            border-radius: 1.75rem;
+            width: calc(100% + 1rem);
+
+            h3 {
+              text-decoration: underline;
+            }
+          }
+
           @media (hover: hover) {
             &:hover {
               h3 {

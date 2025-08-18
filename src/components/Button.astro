@@ -52,11 +52,17 @@ const { variant = "primary", ...restProps } = Astro.props;
       --hue: 0.75;
       background-color: var(--color-500);
       color: var(--color-white);
-      border: 1px solid transparent;
+      border: 1px solid var(--color-500);
+
+      &:focus-visible {
+        background-color: var(--color-600);
+        border: 1px solid var(--color-600);
+      }
 
       @media (hover: hover) {
         &:hover {
           background-color: var(--color-600);
+          border: 1px solid var(--color-600);
         }
       }
     }
@@ -65,6 +71,10 @@ const { variant = "primary", ...restProps } = Astro.props;
       background-color: var(--color-40);
       color: var(--color-850);
       border: 1px solid var(--color-300);
+
+      &:focus-visible {
+        background-color: var(--color-100);
+      }
 
       @media (hover: hover) {
         &:hover {

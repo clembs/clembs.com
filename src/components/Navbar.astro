@@ -103,6 +103,16 @@ const targets = [
     display: block;
     padding: 0.5rem;
     border-radius: 50%;
+
+    &:focus-visible {
+      background-color: var(--color-40);
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        background-color: var(--color-40);
+      }
+    }
   }
 
   .right {
@@ -126,6 +136,10 @@ const targets = [
     border-radius: 999px;
     user-select: none;
     cursor: pointer;
+
+    &:focus-visible {
+      background-color: var(--color-40);
+    }
 
     @media (hover: hover) {
       &:hover {
@@ -152,7 +166,10 @@ const targets = [
     right: -1px;
 
     &:focus-visible + label {
-      outline: 1px solid black;
+      background-color: var(--color-40);
+      box-shadow:
+        0 0 0 2px var(--color-white),
+        0 0 0 4px var(--color-500);
     }
 
     &:checked + label {
@@ -176,6 +193,7 @@ const targets = [
     top: 0;
     right: 0;
     transform: translateY(44px);
+    z-index: 9;
 
     a {
       white-space: nowrap;
