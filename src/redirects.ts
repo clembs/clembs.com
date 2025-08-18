@@ -16,6 +16,7 @@ const redirectList = [
   },
 
   // shortlinks to creation platforms
+  { source: "/donate", destination: "https://ko-fi.com/clembs" },
   { source: "/kofi", destination: "https://ko-fi.com/clembs" },
   { source: /\/gh\/(.*)/, destination: "https://github.com/Clembs/$1" },
   { source: /\/github\/(.*)/, destination: "https://github.com/Clembs/$1" },
