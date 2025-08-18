@@ -12,7 +12,7 @@ main {
 
   p,
   li {
-    font-size: 1.125rem;
+    font-size: clamp(1rem, 2.5vw, 1.125rem);
     line-height: 1.75;
     text-align: justify;
   }
