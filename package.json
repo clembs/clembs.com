@@ -3,7 +3,7 @@
   "type": "module",
   "version": "4.0.0",
   "scripts": {
-    "start": "node ./dist/server/entry.mjs",
+    "start": "sh scripts/clone-friends-blog.sh && node ./dist/server/entry.mjs",
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
