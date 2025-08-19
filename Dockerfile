@@ -5,7 +5,7 @@ COPY . .
 
 ARG SSH_PRIVATE_KEY
 RUN mkdir /root/.ssh/
-RUN echo "${SSH_PRIVATE_KEY}" > /root/.ssh/id_ed25519
+RUN echo "${SSH_PRIVATE_KEY}" > /root/.ssh/id_ed25519 && chmod 600 /root/.ssh/id_ed25519
 
 RUN echo "Host codeberg.org\n  User git\n  IdentityFile /root/.ssh/id_ed25519" > /etc/ssh/ssh_config && \
 echo "codeberg.org ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIVIC02vnjFyL+I4RHfvIGNtOgJMe769VTF1VR4EB3ZB" >> ~/.ssh/known_hosts && \
