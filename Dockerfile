@@ -12,6 +12,12 @@ ARG SSH_PRIVATE_KEY
 RUN mkdir /root/.ssh/
 RUN echo "${SSH_PRIVATE_KEY}" > /root/.ssh/id_ed25519
 
+# trust gerald
+RUN service ssh restart
+
+# check that it copied the key tho
+RUN echo $SSH_PRIVATE_KEY
+
 # clone friends stuff over
 RUN git clone ssh://git@codeberg.org/clembs/friends-blog.git src/content/friends
 
