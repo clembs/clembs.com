@@ -15,7 +15,6 @@ RUN npm install
 RUN apt-get update && \
 apt-get install -y --no-install-recommends openssh-client git
 
-R
 
 # clone friends stuff over
 RUN git clone ssh://git@codeberg.org/clembs/friends-blog.git src/content/friends
