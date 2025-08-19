@@ -1,3 +1,0 @@
-[submodule "friends-blog"]
-	path = friends-blog
-	url = ssh://git@codeberg.org/clembs/friends-blog.git
