@@ -1,16 +1,4 @@
 ---
-function success() {
-  Astro.cookies.set("PASSWORD", accessPassword, {
-    httpOnly: true,
-    sameSite: "strict",
-    secure: true,
-    path: "/",
-    expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
-  });
-
-  Astro.redirect("/friends", 302);
-}
-
 import Footer from "@components/Footer.astro";
 import Navbar from "@components/Navbar.astro";
 import "../styles/global.scss";
@@ -25,11 +13,23 @@ const { title } = Astro.props;
 const accessPassword = import.meta.env.PASSWORD;
 const hasAccess = Astro.cookies.get("PASSWORD")?.value === accessPassword;
 
+function grantAccess() {
+  Astro.cookies.set("PASSWORD", accessPassword, {
+    httpOnly: true,
+    sameSite: "strict",
+    secure: true,
+    path: "/",
+    maxAge: 60 * 60 * 24 * 7,
+  });
+
+  Astro.redirect("/friends", 303);
+}
+
 // try using search params
 const searchParamsPwd = Astro.url.searchParams.get("pwd");
 
 if (searchParamsPwd && searchParamsPwd === accessPassword) {
-  success();
+  grantAccess();
 }
 
 // try using the provided password
@@ -38,8 +38,11 @@ if (Astro.request.method === "POST") {
     const data = await Astro.request.formData();
     const userPwd = data.get("password");
 
+    console.log(userPwd);
+    console.log(accessPassword);
+
     if (userPwd === accessPassword) {
-      success();
+      grantAccess();
     }
   } catch (e) {
     console.error(e);
