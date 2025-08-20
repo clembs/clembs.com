@@ -1,0 +1,29 @@
+---
+import { getLocaleFromUrl, useTranslations } from "@i18n";
+
+const lang = getLocaleFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<script>
+  // in case i die and never update the year or smth
+  document.querySelector("#copyyear")!.innerHTML = new Date()
+    .getFullYear()
+    .toString();
+</script>
+
+<footer>
+  &copy;
+  <span id="copyyear">
+    {new Date().getFullYear()}
+  </span>
+  Clément Voisin. {t("footer_legal_blurb")}
+</footer>
+
+<style lang="scss">
+  footer {
+    margin-top: auto;
+    margin: 1.5rem auto;
+    text-align: center;
+  }
+</style>

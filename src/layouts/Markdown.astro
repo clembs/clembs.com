@@ -1,0 +1,28 @@
+---
+import Layout from "./Layout.astro";
+import "../styles/blog.scss";
+
+type Props = {
+  frontmatter: {
+    title: string;
+    description: string;
+    index: boolean;
+  };
+};
+
+const { frontmatter } = Astro.props;
+---
+
+<Layout {...frontmatter}>
+  <main>
+    <slot />
+  </main>
+</Layout>
+
+<style lang="scss">
+  main {
+    padding: 1rem;
+    margin: 1rem auto;
+    max-width: 800px;
+  }
+</style>

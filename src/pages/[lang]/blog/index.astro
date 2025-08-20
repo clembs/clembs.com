@@ -1,0 +1,258 @@
+---
+export const getStaticPaths = generateLangStaticPaths;
+
+import {
+  generateLangStaticPaths,
+  getLocaleFromUrl,
+  getPostLang,
+  getPostSlug,
+  useTranslatedPaths,
+  useTranslations,
+} from "@i18n";
+import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
+import Layout from "src/layouts/Layout.astro";
+import Globe from "@assets/icons/globe.svg";
+
+const lang = getLocaleFromUrl(Astro.url);
+const t = useTranslations(lang);
+const translatePaths = useTranslatedPaths(lang);
+
+const posts = await getCollection("blog");
+
+const uniquePostsWithLang = posts
+  .filter(
+    (post, i) =>
+      i === posts.findIndex((p) => getPostSlug(p.id) === getPostSlug(post.id))
+  )
+  .map((post) => {
+    const slug = getPostSlug(post.id);
+
+    const langs = posts
+      .filter((p) => {
+        return slug === getPostSlug(p.id);
+      })
+      .map((p) => getPostLang(p.id));
+
+    const userLangPost = posts.find(
+      (p) => getPostSlug(p.id) === slug && getPostLang(p.id) === lang
+    );
+
+    // override data to use the user language's post data (if it exists)
+    if (userLangPost) {
+      return {
+        ...post,
+        slug,
+        langs,
+        data: userLangPost.data,
+      };
+    }
+
+    return {
+      ...post,
+      slug,
+      langs,
+    };
+  })
+  .sort((a, b) => b.data.createdAt.getTime() - a.data.createdAt.getTime());
+
+const categories = Array.from(
+  new Set(posts.map(({ data }) => data.category))
+).map((cId) => ({
+  id: cId,
+  posts: uniquePostsWithLang.filter(({ data }) => data.category === cId),
+}));
+---
+
+<Layout
+  title="Clembs' Blog"
+  description="I write about design, code, and everything in between."
+>
+  <main>
+    <div class="header">
+      <h1>Blog</h1>
+
+      <p>I write about design, code, and everything in between.</p>
+    </div>
+
+    {
+      categories.map((category) => (
+        <div class="category">
+          <h2>{t(`blog.category.${category.id}`)}</h2>
+
+          <ul>
+            {category.posts.map((post, i) => (
+              <li>
+                <a href={translatePaths(`/blog/${post.slug}`)}>
+                  {post.data.bannerPath && (
+                    <Image
+                      src={post.data.bannerPath}
+                      alt={post.data.bannerAlt || ""}
+                      loading={i < 3 ? "eager" : "lazy"}
+                      transition:name={`${post.slug}-img`}
+                    />
+                  )}
+                  <div class="text">
+                    <div class="top">
+                      <div class="title">
+                        <h3 transition:name={post.slug}>{post.data.title}</h3>
+
+                        <time
+                          datetime={post.data.createdAt.toDateString()}
+                          class="small-text"
+                        >
+                          {post.data.createdAt.toLocaleString(lang, {
+                            month: "long",
+                            year: "numeric",
+                          })}
+                        </time>
+                      </div>
+
+                      <div
+                        class="languages"
+                        title={`${t("blog.available_in")} ${post.langs.map((l) => t(`langs.${l}`)).join(` ${t("blog.available_in_and")} `)}`}
+                        aria-label={`${t("blog.available_in")} ${post.langs.map((l) => t(`langs.${l}`)).join(` ${t("blog.available_in_and")} `)}`}
+                        data-unlocalized={!post.langs.includes(lang)}
+                      >
+                        <Globe />
+                        {post.langs.join(", ").toUpperCase()}
+                      </div>
+                    </div>
+
+                    <p>{post.data.summary}</p>
+                  </div>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))
+    }
+  </main>
+</Layout>
+
+<style lang="scss">
+  main {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+    padding: 3rem 1rem;
+
+    max-width: 800px;
+    margin: 1rem auto;
+
+    .header {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .category {
+      display: flex;
+      flex-direction: column;
+      gap: 1.75rem;
+
+      ul {
+        display: flex;
+        flex-direction: column;
+        gap: 1.75rem;
+
+        list-style: none;
+
+        li {
+          width: 100%;
+        }
+
+        a {
+          display: flex;
+          gap: 1rem;
+          width: 100%;
+
+          &:focus-visible {
+            margin: -0.5rem;
+            padding: 0.5rem;
+            border-radius: 1.75rem;
+            width: calc(100% + 1rem);
+
+            h3 {
+              text-decoration: underline;
+            }
+          }
+
+          @media (hover: hover) {
+            &:hover {
+              h3 {
+                text-decoration: underline;
+              }
+            }
+          }
+
+          @media (max-width: 700px) {
+            flex-direction: column;
+          }
+
+          img {
+            max-width: 275px;
+            height: fit-content;
+            object-fit: cover;
+            aspect-ratio: 16 / 9;
+            background-size: cover;
+
+            border-radius: 1.25rem;
+            border: 1px solid var(--color-700);
+
+            @media (max-width: 700px) {
+              max-width: 100%;
+            }
+          }
+
+          .text {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            width: 100%;
+
+            .top {
+              display: flex;
+              gap: 0.5rem;
+              justify-content: space-between;
+              align-items: flex-start;
+
+              time {
+                color: var(--color-600);
+              }
+
+              .languages {
+                display: flex;
+                align-items: center;
+                gap: 0.375rem;
+                flex-shrink: 0;
+
+                background-color: var(--color-100);
+                border: 3px solid var(--color-100);
+                color: var(--color-700);
+
+                padding: 0.25rem;
+                padding-left: 0.125rem;
+                border-radius: 0.75rem;
+
+                font-weight: 600;
+
+                &[data-unlocalized="true"] {
+                  background-color: var(--color-40);
+                  border: 3px dashed var(--color-400);
+                  color: var(--color-400);
+                }
+
+                :global(svg) {
+                  width: 1.25rem;
+                  height: 1.25rem;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+</style>

@@ -1,0 +1,183 @@
+---
+import External from "@assets/icons/external.svg";
+import Share from "@assets/icons/share.svg";
+import Button from "@components/Button.astro";
+import "../styles/blog.scss";
+import Layout from "./Layout.astro";
+import { Image } from "astro:assets";
+import { getLocaleFromUrl, getPostSlug, useTranslations } from "@i18n";
+import type { CollectionEntry } from "astro:content";
+import ShareDialog from "@components/ShareDialog.astro";
+
+type Props = {
+  post: CollectionEntry<"blog">;
+};
+
+const { post } = Astro.props;
+
+const createdAt = new Date(post.data.createdAt);
+const lastEditedAt = post.data.lastEditedAt
+  ? new Date(post.data.lastEditedAt)
+  : undefined;
+
+const slug = getPostSlug(post.id);
+
+const lang = getLocaleFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<script>
+  const shareDialogButton = document.getElementById("share-dialog-button");
+  // if invoker API exists, no need to execute javascript
+  if (shareDialogButton && !("command" in shareDialogButton)) {
+    const shareDialog = document.getElementById(
+      "share-dialog"
+    ) as HTMLDialogElement;
+
+    shareDialogButton?.addEventListener("click", () => {
+      shareDialog.showModal();
+    });
+  }
+</script>
+
+<Layout
+  title={post.data.title}
+  description={post.data.summary}
+  image={post.data.bannerPath}
+>
+  <ShareDialog post={post.data} />
+
+  <div id="summary-header">
+    <div class="text">
+      <h1 transition:name={slug}>{post.data.title}</h1>
+
+      <p>
+        <time datetime={createdAt.toDateString()}>
+          {
+            createdAt.toLocaleString(lang, {
+              month: "long",
+              day: "numeric",
+              year: "numeric",
+            })
+          }
+        </time>
+        {post.data.clientText ? `• ${post.data.clientText}` : ""}
+        {
+          lastEditedAt ? (
+            <span class="edited">
+              • {t("blog.edited_on")}
+              <time datetime={lastEditedAt.toDateString()}>
+                {lastEditedAt.toLocaleString(lang, {
+                  month: "long",
+                  day: "numeric",
+                  year: "numeric",
+                })}
+              </time>
+            </span>
+          ) : (
+            ""
+          )
+        }
+      </p>
+
+      <div class="buttons">
+        {
+          post.data.projectUrl ? (
+            <Button href={post.data.projectUrl}>
+              <External />
+              {t("blog.view_project")}
+            </Button>
+          ) : (
+            ""
+          )
+        }
+
+        <!-- @ts-ignore using tech thats too advanced for the language server -->
+        <Button
+          id="share-dialog-button"
+          commandfor="share-dialog"
+          command="show-modal"
+          variant="secondary"
+        >
+          <Share />
+
+          <span class="label">
+            {t("blog.share_article")}
+          </span>
+        </Button>
+      </div>
+    </div>
+
+    {
+      post.data.bannerPath ? (
+        <Image
+          src={post.data.bannerPath}
+          alt={post.data.bannerAlt || ""}
+          style={`background-image: url(${post.data.bannerThumbnailPath});`}
+          loading="eager"
+          transition:name={`${slug}-img`}
+        />
+      ) : (
+        ""
+      )
+    }
+  </div>
+
+  <main>
+    <slot />
+  </main>
+</Layout>
+
+<style lang="scss">
+  #summary-header,
+  main {
+    padding: 1rem;
+    margin: 1rem auto;
+  }
+
+  main {
+    max-width: 75ch;
+  }
+
+  #summary-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+
+    .text {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.25rem;
+      text-align: center;
+      max-width: 75ch;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 0.5rem;
+
+      &:global(:has([data-variant="primary"])) {
+        .label {
+          @media (max-width: 600px) {
+            display: none;
+          }
+        }
+      }
+    }
+
+    img {
+      border-radius: 1.25rem;
+      border: 1px solid var(--color-700);
+      width: 100%;
+      max-width: calc(75ch + 100px);
+      aspect-ratio: 16 / 9;
+      background-size: cover;
+    }
+  }
+
+  .edited {
+    color: var(--color-600);
+  }
+</style>

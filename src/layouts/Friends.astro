@@ -1,0 +1,50 @@
+---
+export const prerender = false;
+
+import Footer from "@components/Footer.astro";
+import Navbar from "@components/Navbar.astro";
+import "../styles/global.scss";
+import "../styles/blog.scss";
+import { getLocaleFromUrl, useTranslations } from "@i18n";
+
+type Props = {
+  title: string;
+};
+const { title } = Astro.props;
+
+const lang = getLocaleFromUrl(Astro.url);
+---
+
+<!doctype html>
+<html {lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+
+    <title>{title}</title>
+    <meta name="”robots”" content="”nofollow,noindex”" />
+    <meta property="theme-color" content="#2850de" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
+
+  <body>
+    <Navbar />
+
+    <slot />
+
+    <Footer />
+  </body>
+</html>
+
+<style lang="scss">
+  body {
+    background: linear-gradient(var(--color-850), var(--color-700));
+    color: var(--color-white) !important;
+  }
+
+  :global(main) {
+    padding: 1rem;
+    margin: 1rem auto;
+    max-width: 800px;
+  }
+</style>

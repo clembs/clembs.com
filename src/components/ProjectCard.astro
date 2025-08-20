@@ -1,0 +1,280 @@
+---
+import External from "@assets/icons/external.svg";
+import Tools from "@components/_tools";
+import { getLocaleFromUrl, useTranslations } from "@i18n";
+import type { ImageMetadata } from "astro";
+import { Image } from "astro:assets";
+
+interface Props {
+  key: string;
+  date: "tba" | (string & {});
+  contract:
+    | "freelance"
+    | "internship"
+    | "full-time"
+    | "college-project"
+    | "personal-project"
+    | (string & {});
+  tools: (typeof Tools)[number]["name"][];
+  baseHue: number;
+  url?: string;
+  icon?: ImageMetadata;
+  images?: (ImageMetadata & { alt: string })[];
+}
+
+const { key, date, contract, tools, baseHue, url, icon, images } = Astro.props;
+
+const lang = getLocaleFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const toolDetails = tools.map((t) => Tools.find(({ name }) => name === t)!);
+---
+
+<article style={`--base-hue: ${baseHue}`}>
+  <div class="top">
+    <div class="key-info">
+      <div class="app">
+        {
+          icon && (
+            <Image
+              src={icon}
+              alt={`Icon for ${t(`projects.${key}.title`)}`}
+              class:list={[{ pixelate: key === "mecanume" }, "icon"]}
+              draggable="false"
+            />
+          )
+        }
+
+        <div class="text">
+          <h3>{t(`projects.${key}.title`)}</h3>
+
+          <span class="small-text date">{date === "tba" ? t("tba") : date}</span
+          >
+        </div>
+      </div>
+
+      <a
+        href={url}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={t("project_view").replace(
+          "{project}",
+          t(`projects.${key}.title`)
+        )}
+      >
+        <div class="button">
+          <External />
+        </div>
+      </a>
+    </div>
+
+    <p class="description">{t(`projects.${key}.description`)}</p>
+
+    <div class="context small-text">
+      <div class="text">
+        <span class="contract">
+          {t(contract)}
+        </span>
+
+        <span class="details">
+          {t(`projects.${key}.details`)}
+        </span>
+      </div>
+
+      <div class="tools">
+        {toolDetails.map(({ icon }) => <Fragment set:html={icon.default} />)}
+      </div>
+    </div>
+  </div>
+
+  {
+    images ? (
+      <div class="image-grid">
+        {images?.map((image) => (
+          <div>
+            <Image src={image} alt={image.alt} draggable="false" />
+          </div>
+        ))}
+      </div>
+    ) : (
+      ""
+    )
+  }
+</article>
+
+<style lang="scss">
+  article {
+    --color-850: oklch(0.15 0.07 calc(var(--base-hue) + 12));
+    --color-800: oklch(0.2 0.1 calc(var(--base-hue) + 9));
+    --color-700: oklch(0.3 0.14 calc(var(--base-hue) + 6));
+    --color-600: oklch(0.4 0.18 calc(var(--base-hue) + 3));
+    --color-500: oklch(0.5 0.22 var(--base-hue));
+    --color-400: oklch(0.6 0.18 calc(var(--base-hue) + 2));
+    --color-300: oklch(0.7 0.14 calc(var(--base-hue) + 4));
+    --color-200: oklch(0.8 0.1 calc(var(--base-hue) + 6));
+    --color-100: oklch(0.9 0.07 calc(var(--base-hue) + 8));
+    --color-40: oklch(0.96 0.04 calc(var(--base-hue) + 10));
+
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    color: var(--color-850);
+
+    border-radius: 2.25rem;
+    background-color: var(--color-40);
+    border: 1px solid var(--color-500);
+
+    .top {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      padding: 1rem;
+
+      .key-info {
+        display: flex;
+        justify-content: space-between;
+        gap: 0.5rem;
+        padding: 0.5rem 0.5rem 0 0.5rem;
+
+        .app {
+          display: flex;
+          gap: 0.5rem;
+          // align-items: center;
+
+          .icon {
+            border-radius: 0.75rem;
+            width: 3rem;
+            height: 3rem;
+
+            &.pixelate {
+              image-rendering: pixelated;
+            }
+          }
+
+          .text {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            width: 100%;
+
+            .date {
+              color: var(--color-600);
+            }
+          }
+        }
+
+        a {
+          height: fit-content;
+          flex-shrink: 0;
+          margin: -0.25rem;
+          padding: 0.25rem;
+          border-radius: 99px;
+
+          @media (any-pointer: coarse) {
+            margin: -1rem;
+            padding: 1rem;
+          }
+
+          .button {
+            display: grid;
+            place-items: center;
+            padding: 0.5rem;
+            border-radius: 99px;
+            background-color: var(--color-500);
+            color: var(--color-white);
+            flex-shrink: 0;
+
+            :global(svg) {
+              width: 1.25rem;
+              height: 1.25rem;
+            }
+          }
+
+          @media (hover: hover) {
+            &:is(:hover, :focus-visible) .button {
+              background-color: var(--color-600);
+            }
+          }
+        }
+      }
+
+      .description {
+        padding: 0 0.5rem 0.5rem 0.5rem;
+      }
+
+      .context {
+        display: flex;
+        gap: 0.25rem;
+        flex-wrap: wrap;
+
+        .text {
+          display: inline-flex;
+          border: 2px solid var(--color-100);
+          background-color: var(--color-100);
+          border-radius: 1.5rem;
+
+          .contract,
+          .details {
+            border-radius: 1.5rem;
+            padding: 0.5rem 0.75rem;
+            color: var(--color-700);
+            white-space: nowrap;
+          }
+
+          .contract {
+            background-color: var(--color-100);
+          }
+
+          .details {
+            background-color: var(--color-white);
+          }
+        }
+
+        .tools {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.75rem;
+          background-color: var(--color-100);
+          border-radius: 1.5rem;
+          padding: 0.5rem 0.625rem;
+
+          :global(svg) {
+            width: 1rem;
+            height: 1rem;
+            fill: var(--color-700);
+          }
+        }
+      }
+    }
+
+    .image-grid {
+      display: flex;
+      justify-content: space-evenly;
+      gap: 1rem;
+      overflow: hidden;
+      border-radius: 0 0 2.25rem 2.25rem;
+      margin-top: auto;
+
+      :global(img) {
+        width: 100%;
+        flex: 1;
+      }
+
+      &:has(:nth-child(2)) {
+        padding: 0 1rem;
+      }
+
+      @media (max-width: 700px) {
+        :nth-child(3) {
+          display: none;
+        }
+      }
+
+      @media (max-width: 450px) {
+        :nth-child(2) {
+          display: none;
+        }
+      }
+    }
+  }
+</style>

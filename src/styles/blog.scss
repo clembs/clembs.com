@@ -1,55 +1,165 @@
-article:not(.comment-wrapper) {
-	padding: 1rem;
+main {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p {
+    margin-top: 1em;
+    margin-bottom: 0.8em;
+  }
 
-	p {
-		max-width: 70ch;
-	}
+  p,
+  li {
+    font-size: clamp(1rem, 2.5vw, 1.125rem);
+    line-height: 1.75;
+    text-align: justify;
+  }
 
-	h1,
-	h2,
-	h3,
-	h4,
-	p {
-		margin: 1rem 0;
-	}
+  blockquote {
+    // border-radius: 0.5rem;
+    margin: 2em 0;
+    padding: 1em 1.5em;
+    background-color: var(--color-100);
+    border-left: 0.25em solid var(--color-500);
+    font-style: italic;
 
-	img,
-	.stylized-element {
-		border: 1px solid var(--color-outline);
-		margin-bottom: 0.75rem;
-		border-radius: 0.75rem;
-		height: auto;
-		max-height: 500px;
-		width: auto;
-	}
+    > *:first-child {
+      margin-top: 0;
+    }
 
-	.stylized-element {
-		overflow: hidden;
-		width: 100%;
-		object-fit: cover;
-		object-position: top;
-	}
+    > *:last-child {
+      margin-bottom: 0;
+    }
+  }
 
-	.image-grid {
-		align-items: center;
-		display: grid;
-		gap: 0.5rem;
-		grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-	}
+  pre,
+  code {
+    font: inherit;
+    font-family: "monospace";
+    line-height: 1.4;
+  }
 
-	blockquote {
-		margin: 0;
-		margin-left: 0.5rem;
-		padding-left: 0.75rem;
-		border-left: 2px solid var(--color-on-surface);
-		background-color: var(--color-surface);
-		border-radius: 0.25rem;
-	}
-}
+  pre,
+  :not(pre) code {
+    background-color: var(--couleur-surface-claire);
+    border: 2px solid var(--couleur-surface-sombre);
+    border-radius: 0.25rem;
+  }
 
-@media (max-width: 850px) {
-	article:not(.comment-wrapper) {
-		margin: 1rem;
-		margin-top: 1.5rem;
-	}
+  pre {
+    padding: 1em;
+    overflow-x: auto;
+    margin-top: 1em;
+    margin-bottom: 1em;
+  }
+
+  :not(pre) code {
+    padding: 0.1em 0.3em;
+  }
+
+  ul,
+  ol {
+    margin-top: 1em;
+    margin-bottom: 1em;
+    padding-left: 2em;
+  }
+
+  li {
+    margin-bottom: 0.5em;
+  }
+
+  ul ul,
+  ol ol,
+  ul ol,
+  ol ul {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+
+  a {
+    color: var(--color-600);
+    text-decoration: underline;
+
+    @media (hover: hover) {
+      &:hover,
+      &:focus {
+        text-decoration: none;
+        color: var(--color-500);
+      }
+    }
+
+    // for all links not pointing to clembs.com, show an icon besides the link
+    &:not(
+        :is(
+            [href*="clembs.com"],
+            [href^="/"],
+            [href^="./"],
+            [href^="../"],
+            [href^="#"]
+          )
+      )::after,
+    &[target="_blank"]::after {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      margin-left: 3px;
+      transform: translateY(
+        1.5px
+      ); // Kind of a hack to align it to the text better
+      content: url("data:image/svg+xml,%3Csvg width='13' height='13' viewBox='0 0 13 13' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M3 3.25V4.75H2.25V10.668C2.7157 10.6217 3.34662 10.5626 4.0625 10.5029C5.32956 10.3973 6.87765 10.2909 8.25 10.2598V10H9.75V11.75H9C7.53247 11.75 5.68296 11.8725 4.1875 11.9971C3.44249 12.0592 2.78983 12.1214 2.32422 12.168C2.09166 12.1912 1.90581 12.2111 1.77832 12.2246C1.71456 12.2314 1.6649 12.2366 1.63184 12.2402C1.61555 12.242 1.60295 12.2432 1.59473 12.2441C1.59086 12.2446 1.58793 12.2449 1.58594 12.2451H1.58301L0.75 12.3379V3.25H3ZM12.25 1.5C12.25 3.03577 12.1221 4.68859 11.9961 5.94922C11.9329 6.58131 11.8698 7.1191 11.8223 7.49902C11.7985 7.6888 11.7786 7.83966 11.7646 7.94336C11.7577 7.99522 11.7518 8.03611 11.748 8.06348L11.7432 8.10254L11.7422 8.10547C11.7381 8.10494 11.6849 8.09783 11 8C10.3069 7.901 10.2609 7.89398 10.2578 7.89355C10.258 7.8921 10.2584 7.88788 10.2588 7.88477C10.2597 7.87853 10.261 7.86882 10.2627 7.85645C10.2662 7.83115 10.2717 7.79342 10.2783 7.74414C10.2917 7.64477 10.3109 7.49833 10.334 7.31348C10.3802 6.94349 10.4421 6.41839 10.5039 5.80078C10.576 5.07938 10.6432 4.23616 10.6904 3.36914C9.77509 4.28448 8.77532 5.28522 7.90137 6.15918L5.53027 8.53027L4.46973 7.46973L6.84082 5.09863C7.71478 4.22468 8.71454 3.22394 9.62988 2.30859C8.76318 2.35584 7.92036 2.42398 7.19922 2.49609C6.5816 2.55786 6.0565 2.61977 5.68652 2.66602C5.50167 2.68912 5.35523 2.7083 5.25586 2.72168C5.20658 2.72831 5.16885 2.73379 5.14355 2.7373C5.13117 2.73902 5.12147 2.74033 5.11523 2.74121C5.11244 2.7416 5.10986 2.74198 5.1084 2.74219H5.10645C5.10602 2.73912 5.09901 2.69307 5 2L4.89453 1.25781L4.89746 1.25684L4.93652 1.25195C4.96389 1.24815 5.00478 1.24233 5.05664 1.23535C5.16034 1.22139 5.31121 1.20146 5.50098 1.17773C5.8809 1.13025 6.4187 1.06711 7.05078 1.00391C8.31141 0.877851 9.96421 0.75 11.5 0.75H12.25V1.5Z' fill='%232d54d3'/%3E%3C/svg%3E");
+    }
+  }
+
+  img,
+  video {
+    margin: 1em 0;
+    max-height: 70vh;
+    width: auto;
+  }
+
+  figure {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 3em 0;
+
+    img {
+      max-height: 50vh;
+    }
+
+    p {
+      margin: 0;
+      text-align: center;
+      font-style: italic;
+      font-size: 1em;
+      color: var(--color-600);
+    }
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2rem 0;
+  }
+
+  th,
+  td {
+    border: 2px solid var(--color-700);
+    padding: 0.75rem;
+    text-align: left;
+  }
+
+  th {
+    background-color: var(--color-200);
+    font-weight: bold;
+  }
+
+  tbody tr:nth-child(even) {
+    background-color: var(--color-40);
+  }
+  tbody tr:nth-child(odd) {
+    background-color: var(--color-white);
+  }
 }

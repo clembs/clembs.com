@@ -1,0 +1,242 @@
+---
+export const getStaticPaths = generateLangStaticPaths;
+
+import Briefcase from "@assets/icons/briefcase.svg";
+import Bulb from "@assets/icons/bulb.svg";
+import CRBT from "@assets/project-icons/crbt.webp";
+import MecaNume from "@assets/project-icons/mecanume.png";
+import Webpals from "@assets/project-icons/webpals.webp";
+import Ix from "@assets/project-images/ix.webp";
+import JamesHuang from "@assets/project-images/jameshuang.webp";
+import Uniten1 from "@assets/project-images/uniten-1.webp";
+import Uniten2 from "@assets/project-images/uniten-2.webp";
+import Uniten3 from "@assets/project-images/uniten-3.webp";
+import Webpals1 from "@assets/project-images/webpals-1.webp";
+import Webpals2 from "@assets/project-images/webpals-2.webp";
+import Webpals3 from "@assets/project-images/webpals-3.webp";
+import Button from "@components/Button.astro";
+import ProjectCard from "@components/ProjectCard.astro";
+import {
+  getLocaleFromUrl,
+  useTranslatedPaths,
+  useTranslations,
+  generateLangStaticPaths,
+} from "@i18n";
+import Layout from "../../layouts/Layout.astro";
+import Avatar from "./_Avatar.astro";
+import Contact from "./_Contact.astro";
+import AvailabilityCTA from "@components/AvailabilityCTA.astro";
+
+const lang = getLocaleFromUrl(Astro.url);
+const t = useTranslations(lang);
+const translatePath = useTranslatedPaths(lang);
+---
+
+<Layout title="Clément Voisin" description={t("intro.subtext")}>
+  <section class="hero">
+    <Avatar />
+
+    <div class="text">
+      <small>
+        {t("intro.eyebrow")}
+      </small>
+
+      <h1>{t("intro.title")}</h1>
+
+      <p>{t("intro.subtext")}</p>
+    </div>
+
+    <AvailabilityCTA />
+
+    <div class="buttons">
+      <Button href={translatePath("/cv")}>
+        {t("cta.read_cv")}
+      </Button>
+      <Button variant="secondary" href="#contact">
+        {t("cta.contact_me")}
+      </Button>
+    </div>
+  </section>
+
+  <section class="projects">
+    <div class="section-title">
+      <Briefcase />
+
+      <h2>
+        {t("section_work")}
+      </h2>
+    </div>
+
+    <div class="project-grid">
+      <ProjectCard
+        key="uniten"
+        date="2025"
+        contract="internship"
+        tools={["Flutter", "Firebase", "PostgreSQL"]}
+        baseHue={31}
+        url="https://uniten.fr"
+        images={[
+          {
+            ...Uniten1,
+            alt: 'Mobile welcome screen reading "Ready to play?" with a tennis court backdrop.',
+          },
+          {
+            ...Uniten2,
+            alt: "Mobile home screen with a list of tennis sessions alongside a list of filters.",
+          },
+          {
+            ...Uniten3,
+            alt: 'Mobile "create session" screen with a search bar for clubs and some suggestions.',
+          },
+        ]}
+      />
+      <ProjectCard
+        key="jameshuang"
+        date="2024-2025"
+        contract="freelance"
+        tools={["Svelte", "Sass"]}
+        baseHue={68}
+        url="https://jameshuang.design"
+        images={[
+          {
+            ...JamesHuang,
+            alt: 'A dark-themed website, showing a big title reading "James Huang, multidisciplinary designer." with a graphic showing a laptop with multiple posters beneath.',
+          },
+        ]}
+      />
+      <ProjectCard
+        key="ix"
+        date="2024"
+        contract="freelance"
+        tools={["HTML", "CSS"]}
+        baseHue={203}
+        url="https://language-manual.pages.dev"
+        images={[
+          {
+            ...Ix,
+            alt: "A minimalist grey website, very verbose text and a graphic showing a fake code editor.",
+          },
+        ]}
+      />
+    </div>
+  </section>
+
+  <section class="projects">
+    <div class="section-title">
+      <Bulb />
+
+      <h2>
+        {t("section_projects")}
+      </h2>
+    </div>
+
+    <div class="project-grid">
+      <ProjectCard
+        key="webpals"
+        date="tba"
+        contract="personal-project"
+        tools={["Svelte", "Sass", "PostgreSQL"]}
+        baseHue={250}
+        url="https://webpals.me/clembs"
+        icon={Webpals}
+        images={[
+          {
+            ...Webpals1,
+            alt: "Mobile Webpals profile for Clembs. Very simplistic design in shades of gray. Edit buttons are shown on some widgets.",
+          },
+          {
+            ...Webpals2,
+            alt: "Mobile Webpals profile for Grld. It features a dark design with an anime character as the backdrop.",
+          },
+          {
+            ...Webpals3,
+            alt: "Mobile Webpals profile for YourDoctor. Designed in shades of dark blue with very rounded corners and thick grey borders on widgets.",
+          },
+        ]}
+      />
+      <ProjectCard
+        key="crbt"
+        date="2019-2024"
+        contract="personal-project"
+        tools={["Purplet", "TypeScript", "Discord", "Prisma"]}
+        baseHue={5}
+        url="https://crbt.app"
+        icon={CRBT}
+      />
+      <ProjectCard
+        key="mecanume"
+        date="2024"
+        contract="college-project"
+        tools={["Svelte", "Sass"]}
+        baseHue={147}
+        url="https://mecanique-numerique.vercel.app"
+        icon={MecaNume}
+      />
+    </div>
+  </section>
+
+  <Contact />
+</Layout>
+
+<style lang="scss">
+  .text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+
+    text-align: center;
+
+    p {
+      max-width: 42ch;
+    }
+  }
+
+  .buttons {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  :global(section) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+
+    margin: 0 auto;
+
+    max-width: 800px;
+    padding: clamp(1rem, 5vw, 3rem);
+  }
+
+  :global(.section-title) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.5rem;
+
+    :global(svg) {
+      width: 2.25rem;
+      height: 2.25rem;
+    }
+  }
+
+  .project-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+
+    :global(> :first-child) {
+      grid-column: span 2;
+    }
+
+    @media (max-width: 680px) {
+      grid-template-columns: 1fr;
+
+      :global(> :first-child) {
+        grid-column: span 1;
+      }
+    }
+  }
+</style>

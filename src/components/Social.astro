@@ -1,0 +1,154 @@
+---
+import External from "@assets/icons/external.svg";
+import Copy from "@assets/icons/copy.svg";
+
+type Props = {
+  name: string;
+  description: string;
+  icon: typeof Copy;
+} & (
+  | {
+      href: string;
+    }
+  | {
+      text: string;
+    }
+);
+
+const social = Astro.props;
+
+export { type Props as SocialProps };
+---
+
+<script>
+  import Check from "@assets/icons/check.svg?raw";
+  import Copy from "@assets/icons/copy.svg?raw";
+
+  const socialButtons = document.querySelectorAll("button.social");
+
+  socialButtons.forEach((b) =>
+    b.addEventListener("click", () => {
+      const text = b.getAttribute("data-text");
+
+      if (!text) {
+        console.error("?????");
+        return;
+      }
+
+      navigator.clipboard.writeText(text);
+
+      let icon = b.querySelector(".copy-icon")!;
+
+      icon.innerHTML = Check;
+
+      setTimeout(() => {
+        icon.innerHTML = Copy;
+      }, 1000);
+    })
+  );
+</script>
+
+{
+  "href" in social ? (
+    <a
+      href={social.href}
+      class="social"
+      target="_blank"
+      rel="noreferrer noopener"
+    >
+      <social.icon />
+
+      <div class="text">
+        <span class="name">
+          {social.name}
+
+          <External />
+        </span>
+        <span class="description small-text">{social.description}</span>
+      </div>
+    </a>
+  ) : (
+    <button
+      id={social.name.toLowerCase()}
+      class="social"
+      data-text={social.text}
+    >
+      <social.icon />
+
+      <div class="text">
+        <span class="name">
+          {social.name}
+
+          <div class="copy-icon">
+            <Copy />
+          </div>
+        </span>
+        <span class="description small-text">{social.description}</span>
+      </div>
+    </button>
+  )
+}
+
+<style lang="scss">
+  .social {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 0.5rem;
+    margin: -0.5rem;
+    gap: 0.75rem;
+    border-radius: 1rem;
+
+    // button stuff
+    appearance: none;
+    background-color: transparent;
+    border: none;
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+
+    @media (max-width: 600px) {
+      padding: 1rem;
+      margin: 0;
+    }
+
+    @media (any-pointer: coarse) {
+      padding: 1rem;
+    }
+
+    @media (hover: hover) {
+      &:hover,
+      &:focus-visible {
+        background-color: var(--color-100);
+      }
+    }
+
+    :global(svg:first-child) {
+      height: 2rem;
+      width: 2rem;
+      border-radius: 0.5rem;
+    }
+
+    .text {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+
+      .name {
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+        font-weight: 500;
+
+        :global(svg) {
+          width: 1rem;
+          height: 1rem;
+        }
+      }
+
+      .description {
+        color: var(--color-500);
+      }
+    }
+  }
+</style>

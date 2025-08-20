@@ -1,0 +1,99 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+type CommonProps = {
+  id?: string;
+  variant?: "primary" | "secondary";
+};
+
+type Props =
+  | (HTMLAttributes<"a"> &
+      CommonProps & {
+        href: string;
+      })
+  | (HTMLAttributes<"button"> & CommonProps);
+
+const { variant = "primary", ...restProps } = Astro.props;
+---
+
+{
+  "href" in restProps ? (
+    <a
+      class:list={["clickable", restProps.class]}
+      data-variant={variant}
+      {...restProps}
+    >
+      <slot />
+    </a>
+  ) : (
+    <button
+      class:list={["clickable", restProps.class]}
+      data-variant={variant}
+      {...restProps}
+    >
+      <slot />
+    </button>
+  )
+}
+
+<style lang="scss">
+  a,
+  button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    border-radius: 99px;
+    user-select: none;
+    cursor: pointer;
+    appearance: none;
+
+    &[data-variant="primary"] {
+      --hue: 0.75;
+      background-color: var(--color-500);
+      color: var(--color-white);
+      border: 1px solid var(--color-500);
+
+      &:focus-visible {
+        background-color: var(--color-600);
+        border: 1px solid var(--color-600);
+      }
+
+      @media (hover: hover) {
+        &:hover {
+          background-color: var(--color-600);
+          border: 1px solid var(--color-600);
+        }
+      }
+    }
+
+    &[data-variant="secondary"] {
+      background-color: var(--color-40);
+      color: var(--color-850);
+      border: 1px solid var(--color-300);
+
+      &:focus-visible {
+        background-color: var(--color-100);
+      }
+
+      @media (hover: hover) {
+        &:hover {
+          background-color: var(--color-100);
+        }
+      }
+    }
+
+    &:has(svg) {
+      padding-left: 0.75rem;
+
+      :global(svg) {
+        height: 1.5rem;
+        width: 1.5rem;
+      }
+
+      &:has(:only-child) {
+        padding-right: 0.75rem;
+      }
+    }
+  }
+</style>

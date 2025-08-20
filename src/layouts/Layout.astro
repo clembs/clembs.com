@@ -1,0 +1,147 @@
+---
+import Footer from "@components/Footer.astro";
+import Navbar from "@components/Navbar.astro";
+import "../styles/global.scss";
+import type { ImageMetadata } from "astro";
+import type { BlogData } from "src/content.config";
+import { getLocaleFromUrl, useTranslatedPaths } from "@i18n";
+
+type Props = {
+  title: string;
+  description: string;
+  image?: ImageMetadata;
+  post?: BlogData;
+  index?: boolean;
+};
+
+const { title, description, image, post, index = true } = Astro.props;
+
+const lang = getLocaleFromUrl(Astro.url);
+const translatePaths = useTranslatedPaths(lang);
+---
+
+<!doctype html>
+<html {lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- site title -->
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta property="og:title" content={title} />
+    <meta name="twitter:title" content={title} />
+
+    <!-- description -->
+    {
+      description && (
+        <>
+          <meta name="description" content={description} />
+          <meta property="og:description" content={description} />
+          <meta name="twitter:description" content={description} />
+        </>
+      )
+    }
+
+    <!-- search engine indexing -->
+    <meta
+      name="”robots”"
+      content={index ? "”follow,index”" : "”nofollow,noindex”"}
+    />
+    <link rel="canonical" href={Astro.url.href} />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <!-- authorship/copyright -->
+    <meta name="author" content="Clément Voisin" />
+    <meta name="copyright" content="© 2025 Clément Voisin" />
+    <meta property="og:site_name" content="Clément Voisin" />
+    <meta name="twitter:site" content="@ClembsV" />
+    <meta property="og:url" content={Astro.url.href} />
+    <meta property="og:type" content="website" />
+
+    <!-- theming/icons -->
+    <meta property="theme-color" content="#2850de" />
+
+    <!-- <link rel="apple-touch-icon" href="" /> -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- image -->
+    {
+      image && (
+        <>
+          <meta name="image" content={image.src} />
+          <meta property="og:image" content={image.src} />
+          <meta name="twitter:image" content={image.src} />
+          <meta name="twitter:card" content="summary_large_image" />
+        </>
+      )
+    }
+
+    <!-- Blog post stuff -->
+    {
+      post && (
+        <>
+          <meta name="byl" content="By Clément Voisin" />
+          <meta name="article:author" content="Clément Voisin" />
+          <meta name="pubdate" content={post.createdAt.toISOString()} />
+          <meta
+            property="article:published_time"
+            content={post.createdAt.toISOString()}
+          />
+          <meta property="article:section" content="Blog" />
+          {/* <link
+            rel="alternate"
+            type="application/json+oembed"
+            href="{page.url.origin}/oembed/blog/{article.categoryId}/{article.slug}"
+            title={post.title}
+          /> */}
+        </>
+      )
+    }
+
+    <!-- language alternates -->
+    {
+      ["en-us", "fr-fr"].map((l) => (
+        <link
+          rel="alternate"
+          hreflang={l}
+          href={`${Astro.url.origin}/${translatePaths(Astro.url.pathname, l.split("-")[0])}`}
+        />
+      ))
+    }
+  </head>
+
+  <body>
+    <Navbar />
+
+    <slot />
+
+    <Footer />
+  </body>
+</html>
+
+<style lang="scss">
+  body {
+    background: linear-gradient(var(--color-white), var(--color-40));
+
+    &::before {
+      content: "";
+      pointer-events: none;
+      z-index: -1;
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      background-image: radial-gradient(
+          rgba(0, 0, 0, 0.15) 1.5px,
+          transparent 1.5px
+        ),
+        radial-gradient(rgba(0, 0, 0, 0.15) 1.5px, transparent 1.5px);
+      background-size: 40px 40px;
+      background-position:
+        0 0,
+        20px 20px;
+    }
+  }
+</style>
