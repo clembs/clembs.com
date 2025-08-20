@@ -1,0 +1,32 @@
+---
+export const prerender = false;
+
+import { getLocaleFromUrl, getPostSlug, useTranslations } from "@i18n";
+import { getCollection } from "astro:content";
+import Friends from "src/layouts/Friends.astro";
+
+const lang = getLocaleFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const posts = (await getCollection("friends"))
+  .filter((p) => p.id.endsWith(lang))
+  .sort((a, b) => b.data.createdAt.getTime() - a.data.createdAt.getTime())
+  .map((p) => ({ ...p, slug: getPostSlug(p.id) }));
+---
+
+<Friends title="Friends">
+  {
+    posts.map((e) => (
+      <article id={e.slug}>
+        <h1>
+          {e.data.createdAt.toLocaleString(lang, {
+            month: "long",
+            year: "numeric",
+          })}
+        </h1>
+
+        <Fragment set:html={e.rendered?.html} />
+      </article>
+    ))
+  }
+</Friends>

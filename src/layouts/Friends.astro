@@ -1,0 +1,181 @@
+---
+function success() {
+  Astro.cookies.set("PASSWORD", accessPassword, {
+    httpOnly: true,
+    sameSite: "strict",
+    secure: true,
+    expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
+  });
+
+  Astro.redirect("/friends");
+}
+
+import Footer from "@components/Footer.astro";
+import Navbar from "@components/Navbar.astro";
+import "../styles/global.scss";
+import "../styles/blog.scss";
+import { getLocaleFromUrl } from "@i18n";
+
+type Props = {
+  title: string;
+};
+const { title } = Astro.props;
+
+const accessPassword = import.meta.env.PASSWORD;
+const hasAccess = Astro.cookies.get("PASSWORD")?.value === accessPassword;
+
+// try using search params
+const searchParamsPwd = Astro.url.searchParams.get("pwd");
+
+if (searchParamsPwd && searchParamsPwd === accessPassword) {
+  success();
+}
+
+// try using the provided password
+if (Astro.request.method === "POST") {
+  try {
+    const data = await Astro.request.formData();
+    const userPwd = data.get("password");
+
+    if (userPwd === accessPassword) {
+      success();
+    }
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+const lang = getLocaleFromUrl(Astro.url);
+---
+
+<!doctype html>
+<html {lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+
+    <title>{title}</title>
+    <meta name="”robots”" content="”nofollow,noindex”" />
+    <meta property="theme-color" content="#2850de" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
+
+  <body>
+    <Navbar />
+
+    {
+      hasAccess ? (
+        <main>
+          <slot />
+        </main>
+      ) : (
+        <main id="pwd-screen">
+          <h1>Friends blog</h1>
+
+          <p>Clembs should have given you a code to enter.</p>
+
+          <form method="POST" id="pwd-wrapper">
+            <input type="text" maxlength="5" minlength="5" name="password" />
+
+            <button>Unlock</button>
+          </form>
+        </main>
+      )
+    }
+
+    <Footer />
+  </body>
+</html>
+
+<style lang="scss">
+  body {
+    background: linear-gradient(var(--color-850), var(--color-700));
+    color: var(--color-white);
+  }
+
+  main {
+    padding: 1rem;
+    margin: 1rem auto;
+    max-width: 800px;
+  }
+
+  #pwd-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    gap: 1rem;
+
+    flex-grow: 1;
+
+    h1 {
+      margin: 0;
+    }
+
+    p {
+      text-align: center;
+    }
+
+    #pwd-wrapper {
+      display: inline-flex;
+      gap: 1px;
+
+      background-color: var(--color-white);
+      border: 1px solid var(--color-white);
+
+      overflow: hidden;
+      border-radius: 1.25rem;
+
+      box-shadow: 0 2px 0 0 var(--color-white);
+      max-width: min-content;
+      align-items: stretch;
+
+      @media (max-width: 400px) {
+        flex-direction: column;
+      }
+
+      input {
+        display: flex;
+
+        width: 100%;
+        min-width: calc(6ch + 3rem);
+        flex-grow: 1;
+
+        appearance: none;
+        border: none;
+        background-color: var(--color-700);
+        border-right: 1px solid var(--color-white);
+
+        color: var(--color-white);
+        text-align: center;
+        font-size: 40px;
+
+        padding: 1rem 1.5rem;
+      }
+
+      button {
+        padding: 0.75rem 1.25rem;
+
+        font-size: 1.25rem;
+        background-color: var(--color-500);
+        color: var(--color-white);
+        cursor: pointer;
+        appearance: none;
+        border: none;
+
+        flex-shrink: 0;
+
+        &:focus-within {
+          background-color: var(--color-600);
+        }
+
+        @media (hover: hover) {
+          &:hover {
+            background-color: var(--color-600);
+          }
+        }
+      }
+    }
+  }
+</style>

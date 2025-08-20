@@ -22,6 +22,20 @@ const blog = defineCollection({
     }),
 });
 
-export const collections = { blog };
+// the friends thing is hosted on a separate private repository
+// thats then merged to the source before building
+
+// huge props to gérald & gpt-5 (lol)
+const friends = defineCollection({
+  loader: glob({
+    pattern: "**/*.{md,mdx}",
+    base: "./src/content/friends/posts/",
+  }),
+  schema: z.object({
+    createdAt: z.coerce.date(),
+  }),
+});
+
+export const collections = { blog, friends };
 
 export type BlogData = CollectionEntry<"blog">["data"];

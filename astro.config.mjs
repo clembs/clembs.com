@@ -19,7 +19,9 @@ export default defineConfig({
     mdx(),
     sitemap({
       filter: (page) =>
-        !["/disabled-redirect"].find((u) => `${baseUrl}${u}` === page),
+        !["/disabled-redirect", "/friends"].find(
+          (u) => `${baseUrl}${u}` === page
+        ),
     }),
   ],
 });
