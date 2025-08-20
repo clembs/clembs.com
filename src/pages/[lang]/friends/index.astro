@@ -14,7 +14,7 @@ const posts = (await getCollection("friends"))
   .map((p) => ({ ...p, slug: getPostSlug(p.id) }));
 ---
 
-<Friends title="Friends">
+<Friends title={t("friends.title")}>
   {
     posts.map((e) => (
       <article id={e.slug}>

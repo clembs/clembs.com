@@ -15,7 +15,7 @@ import Footer from "@components/Footer.astro";
 import Navbar from "@components/Navbar.astro";
 import "../styles/global.scss";
 import "../styles/blog.scss";
-import { getLocaleFromUrl } from "@i18n";
+import { getLocaleFromUrl, useTranslations } from "@i18n";
 
 type Props = {
   title: string;
@@ -47,6 +47,7 @@ if (Astro.request.method === "POST") {
 }
 
 const lang = getLocaleFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 
 <!doctype html>
@@ -71,9 +72,9 @@ const lang = getLocaleFromUrl(Astro.url);
         </main>
       ) : (
         <main id="pwd-screen">
-          <h1>Friends blog</h1>
+          <h1>{t("friends.title")}</h1>
 
-          <p>Clembs should have given you a code to enter.</p>
+          <p>{t("friends.pwd.explaining")}</p>
 
           <form method="POST" id="pwd-wrapper">
             <input
@@ -84,7 +85,7 @@ const lang = getLocaleFromUrl(Astro.url);
               required
             />
 
-            <button>Unlock</button>
+            <button>{t("friends.pwd.button")}</button>
           </form>
         </main>
       )

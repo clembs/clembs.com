@@ -48,6 +48,9 @@ export const fr: typeof en = {
     "Vous lisez l'article dans sa version originale car il n'a pas été traduit en français.",
   "blog.category.case-studies": "Projets et études de cas",
   "blog.category.discovelist": "Discovelist",
+  "friends.title": "Blog pour les amis",
+  "friends.pwd.explaining": "Clément a dû vous donner un code pour rentrer.",
+  "friends.pwd.button": "Débloquer",
   "projects.uniten.title": "UNITEN",
   "projects.uniten.description":
     "App mobile permettant aux joueurs de tennis de trouver des partenaires, réalisée en 8 semaines avec 2 stagiaires",

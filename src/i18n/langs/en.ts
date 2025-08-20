@@ -45,6 +45,9 @@ export default {
     "You're reading the original version of this post as it was not localized in English.",
   "blog.category.case-studies": "Projects, work and case studies",
   "blog.category.discovelist": "Discovelist",
+  "friends.title": "Friends blog",
+  "friends.pwd.explaining": "Clembs should have given you a code to enter.",
+  "friends.pwd.button": "Unlock",
   "projects.uniten.title": "UNITEN",
   "projects.uniten.description":
     "App for tennis players to find partners. Crafting new features and redesigning",
